@@ -41,7 +41,6 @@
 
         for (var index in company.queues) {
             var queueDate = new Date(company.queues[index].created_at);
-
             tableBody +="<tr>";
             tableBody +="<td>"+company.queues[index].user.name+"</td>";
             tableBody +="<td>"+company.queues[index].status+"</td>";

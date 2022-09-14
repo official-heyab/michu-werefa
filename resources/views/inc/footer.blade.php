@@ -4,7 +4,7 @@
             Copyright &copy; Michu Werefa 2021
             <br>
             Designed by
-            <a href="https://kuruzega.com" target="_blank">Heyab Getachew </a>
+            <a href="https://www.upwork.com/freelancers/~01e7472330abb950fb" target="_blank">Heyab Getachew </a>
         </div>
     </div>
 </footer>

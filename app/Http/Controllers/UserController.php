@@ -111,8 +111,6 @@ class UserController extends Controller{
         $balance->transaction_id = $company->id;
         $balance->isWithdrawal = 1;
         $balance->amount = $company->ticket_price;
-        $balance->prev_amount = $user->remainingAmount();
-        $balance->current_amount = $user->remainingAmount() - $company->ticket_price;
         $balance->save();
 
 
