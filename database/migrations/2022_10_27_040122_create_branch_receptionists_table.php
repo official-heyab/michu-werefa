@@ -4,22 +4,26 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration{
+class CreateBranchReceptionistsTable extends Migration{
 
     public function up(){
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('branch_receptionists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone');
-            $table->rememberToken();
+            $table->unsignedBigInteger('company_branch_id');
             $table->timestamps();
+
+            $table->foreign('company_branch_id')
+            ->references('id')
+            ->on('company_branches')
+            ->onDelete('cascade');
         });
     }
 
     public function down(){
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('branch_receptionists');
     }
 }

@@ -4,9 +4,9 @@ namespace Database\Factories;
 
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\BalanceSheet;
+use App\Models\UserBalanceSheet;
 
-class BalanceSheetFactory extends Factory{
+class UserBalanceSheetFactory extends Factory{
 
     public function definition(){
         return [

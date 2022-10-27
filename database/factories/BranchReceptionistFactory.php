@@ -4,9 +4,9 @@ namespace Database\Factories;
 
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Receptionist;
+use App\Models\BranchReceptionist;
 
-class ReceptionistFactory extends Factory{
+class BranchReceptionistFactory extends Factory{
 
     public function definition(){
         return [

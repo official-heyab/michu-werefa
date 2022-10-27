@@ -4,15 +4,15 @@ namespace Database\Factories;
 
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Queue;
-use App\Models\Company;
+use App\Models\BranchQueue;
+use App\Models\CompanyBranch;
 
-class QueueFactory extends Factory{
+class BranchQueueFactory extends Factory{
 
     public function definition(){
 
         return [
-            'company_id' => Company::inRandomOrder()->first()->id,
+            'company_branch_id' => CompanyBranch::inRandomOrder()->first()->id,
             'status' => $this->faker->randomElement($array =
                             array ('Waiting','Aborted','Done', 'Skipped')),
         ];

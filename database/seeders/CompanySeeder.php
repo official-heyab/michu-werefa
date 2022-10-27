@@ -3,14 +3,18 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\CompanyCategory;
 use App\Models\Company;
-use App\Models\Receptionist;
+use App\Models\CompanyBranch;
+use App\Models\BranchReceptionist;
 
 class CompanySeeder extends Seeder{
 
     public function run(){
-        Company::factory()->count(20)
-        ->has(Receptionist::factory()->count(3))
-        ->create();
+        CompanyCategory::factory()->count(5)
+            ->has(Company::factory()->count(5)
+                ->has(CompanyBranch::factory()->count(3)
+                    ->has(BranchReceptionist::factory()->count(3)
+        )))->create();
     }
 }

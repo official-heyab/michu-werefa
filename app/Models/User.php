@@ -27,21 +27,21 @@ class User extends Authenticatable{
         'email_verified_at' => 'datetime',
     ];
 
-    public function balanceSheets(){
-        return $this->hasMany(BalanceSheet::class);
+    public function userBalanceSheets(){
+        return $this->hasMany(UserBalanceSheet::class);
     }
 
-    public function queues(){
-        return $this->hasMany(Queue::class);
+    public function branchQueues(){
+        return $this->hasMany(BranchQueue::class);
     }
 
     public function waitingAt(){
-        return $this->queues->where('status', 'Waiting');
+        return $this->branchQueues->where('status', 'Waiting');
     }
 
     public function remainingAmount(){
         $amount = 0;
-        foreach($this->balanceSheets as $balance){
+        foreach($this->userBalanceSheets as $balance){
             if($balance->isWithdrawal)
                 $amount -= $balance->amount;
             else

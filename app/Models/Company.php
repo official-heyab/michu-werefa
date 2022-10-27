@@ -2,22 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model{
     use HasFactory;
 
-    public function receptionists(){
-        return $this->hasMany(Receptionist::class);
+    public function companyCategory(){
+        return $this->belongsTo(CompanyCategory::class);
     }
 
-    public function queues(){
-        return $this->hasMany(Queue::class);
+    public function companyBranches(){
+        return $this->hasMany(CompanyBranch::class);
     }
-
-    public function peopleWaiting(){
-        return $this->queues->where('status', 'Waiting')->count();
-    }
-
 }
