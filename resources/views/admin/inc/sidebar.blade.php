@@ -18,14 +18,26 @@
         </a>
     </li>
 
-    <li class="nav-item {{ (Route::currentRouteName() == 'company') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('company') }}">
+    <li class="nav-item {{ (Route::currentRouteName() == 'admin.companyCategories') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.companyCategories') }}">
+            <i class="fas fa-fw fa-building"></i><span>Company Categories</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ (Route::currentRouteName() == 'admin.companies') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.companies') }}">
             <i class="fas fa-fw fa-building"></i><span>Companies</span>
         </a>
     </li>
 
-    <li class="nav-item {{ (Route::currentRouteName() == 'user') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('user') }}">
+    <li class="nav-item {{ (Route::currentRouteName() == 'admin.companyBranches') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.companyBranches') }}">
+            <i class="fas fa-fw fa-building"></i><span>Branches & Receptionists</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ (Route::currentRouteName() == 'admin.users') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.users') }}">
             <i class="fas fa-fw fa-user"></i><span>Users</span>
         </a>
     </li>
@@ -43,7 +55,7 @@
     <div class="sidebar-card d-none d-lg-flex">
         <img class="sidebar-card-illustration mb-2" src="{{  asset('sb-theme/img/undraw_rocket.svg') }}" alt="...">
         <p class="text-center mb-2"><strong>Michu Werefa</strong> mobile app is coming soon...</p>
-        <a class="btn btn-success btn-sm" href="{{ route('user.home') }}">View Website</a>
+        <a class="btn btn-success btn-sm" href="{{ route('home') }}">View Website</a>
     </div>
 
 </ul>

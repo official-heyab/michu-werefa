@@ -14,24 +14,8 @@ class HomeController extends Controller{
     }
 
     public function index(){
-        $data['companies'] = Company::with('queues.user')->get();
+        $data['companies'] = Company::with('companyBranches')->get();
         return view('home',$data);
-
-        //Return the appropriate home page according to the authentication
-        return view('admin.home');
-    }
-
-    public function userHome(){
-        $data['companies'] = Company::with('queues.user')->get();
-        return view('home',$data);
-    }
-
-    public function adminHome(){
-        return view('admin.home');
-    }
-
-    public function dashboard(){
-        return view('dashboard');
     }
 
     public function welcome(){
@@ -45,8 +29,5 @@ class HomeController extends Controller{
     public function services(){
         return view('services');
     }
-
-
-
 
 }

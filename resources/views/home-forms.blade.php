@@ -34,18 +34,21 @@
     //get value from links
     $('#historyModal').on('show.bs.modal', function (event) {
         var tableBody="";
-        var company  = $(event.relatedTarget).data('val');
+        var branch  = $(event.relatedTarget).data('val');
+        var company  = $(event.relatedTarget).data('company-val');
 
         $(this).find('span#title').html(company.name);
 
+        console.log(branch.branch_queues);
 
-        for (var index in company.queues) {
-            var queueDate = new Date(company.queues[index].created_at);
+
+        for (var index in branch.branch_queues) {
+            var queueDate = new Date(branch.branch_queues[index].created_at);
             tableBody +="<tr>";
-            tableBody +="<td>"+company.queues[index].user.name+"</td>";
-            tableBody +="<td>"+company.queues[index].status+"</td>";
+            tableBody +="<td>"+branch.branch_queues[index].user_id+"</td>";
+            tableBody +="<td>"+branch.branch_queues[index].status+"</td>";
             tableBody +="<td class='fit'>"+queueDate.getHours()+":"+queueDate.getMinutes();
-            tableBody +=" "+$.datepicker.formatDate('DD, MM d yy', queueDate)+"</td>";
+            tableBody +=" "+$.datepicker.formatDate('DD MM d, yy', queueDate)+"</td>";
             tableBody +="</tr>";
         }
 

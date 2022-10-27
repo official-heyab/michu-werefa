@@ -12,7 +12,7 @@ class BranchQueue extends Model{
         return $this->belongsTo(User::class);
     }
 
-    public function branchCompany(){
-        return $this->belongsTo(BranchCompany::class);
+    public function companyBranch(){
+        return $this->belongsTo(CompanyBranch::class);
     }
 }

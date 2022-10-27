@@ -62,15 +62,11 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th class="fit">Receptionists</th>
-                                            <th>Werefa</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
-                                            <th class="fit">Receptionists</th>
-                                            <th>Werefa</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -94,34 +90,6 @@
                                                         <span class="text">Delete</span>
                                                     </a>
 
-                                                </td>
-                                                <td class="fit">
-                                                    <ul>
-                                                        @foreach($company->receptionists as $recep)
-                                                        <li>
-                                                            {{$recep->name}}
-                                                            <a href="#" data-toggle="modal" data-target="#editReceptionistModal"
-                                                                class="btn btn-secondary" data-val="{{$recep}}" data-company-val="{{$company}}">Edit
-                                                            </a>
-                                                            <a href="#" data-toggle="modal" data-target="#deleteReceptionistModal"
-                                                                class="btn btn-danger" data-val="{{$recep}}" data-company-val="{{$company}}">Delete
-                                                            </a>
-                                                        </li>
-                                                        @endforeach
-                                                    </ul>
-                                                    <a href="#" data-toggle="modal" data-target="#addReceptionistModal"
-                                                        class="btn btn-success btn-icon-split" data-val="{{$company}}">
-                                                        <span class="icon text-white-50"><i class="fas fa-check"></i></span>
-                                                        <span class="text">Add more</span>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <strong>{{$company->peopleWaiting()}} people waiting</strong><br>
-                                                    <a href="#" data-toggle="modal" data-target="#queueModal"
-                                                        class="btn btn-primary btn-icon-split" data-val="{{$company}}">
-                                                        <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
-                                                        <span class="text">History</span>
-                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -169,7 +137,7 @@
         }
     </style>
 
-    @include('admin.company-forms')
+    @include('admin.companies-forms')
 
 
 </body>

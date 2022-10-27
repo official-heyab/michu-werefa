@@ -10,7 +10,7 @@ aria-hidden="true">
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('company.store')}}" method='post' enctype='multipart/form-data'>
+                <form action="{{route('companyBranch.store')}}" method='post' enctype='multipart/form-data'>
                     @csrf
                     <div class="form-group">
                         <input type="text" class="form-control" name="name" placeholder="Name">
@@ -46,7 +46,7 @@ aria-hidden="true">
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('company.update')}}" method='post' enctype='multipart/form-data'>
+                <form action="{{route('companyBranch.update')}}" method='post' enctype='multipart/form-data'>
                     @csrf
                     <input type="hidden" name="id">
                     <div class="form-group">
@@ -84,7 +84,7 @@ aria-hidden="true">
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('company.delete')}}" method='post' enctype='multipart/form-data'>
+                <form action="{{route('companyBranch.delete')}}" method='post' enctype='multipart/form-data'>
                     @csrf
                     <input type="hidden" name="id">
                     <div class="form-group">
@@ -136,7 +136,7 @@ aria-hidden="true">
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('company.receptionist.add')}}" method='post' enctype='multipart/form-data'>
+                <form action="{{route('branchReceptionist.store')}}" method='post' enctype='multipart/form-data'>
                     @csrf
                     <input type="hidden" name="id">
                     <div class="form-group">
@@ -175,7 +175,7 @@ aria-hidden="true">
                  </button>
              </div>
              <div class="modal-body">
-                 <form action="{{route('company.receptionist.update')}}" method='post' enctype='multipart/form-data'>
+                 <form action="{{route('branchReceptionist.update')}}" method='post' enctype='multipart/form-data'>
                      @csrf
                      <input type="hidden" name="id">
 
@@ -213,7 +213,7 @@ aria-hidden="true">
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('company.receptionist.delete')}}" method='post' enctype='multipart/form-data'>
+                <form action="{{route('branchReceptionist.delete')}}" method='post' enctype='multipart/form-data'>
                     @csrf
                     <input type="hidden" name="id">
                     <div class="form-group">
@@ -273,7 +273,7 @@ aria-hidden="true">
             </div>
             <div class="modal-body">
                 <br>
-                <form action="{{route('company.nextPerson')}}" method='post' enctype='multipart/form-data'>
+                <form action="{{route('branchReceptionist.nextPerson')}}" method='post' enctype='multipart/form-data'>
                     @csrf
                     <input type="hidden" name="id">
                     <button type="submit" class="btn btn-success btn-block">Go to Next Person</button>

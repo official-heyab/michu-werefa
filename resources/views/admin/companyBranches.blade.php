@@ -35,9 +35,9 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">User</h1>
-                        <a href="#" data-toggle="modal" data-target="#createModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-plus fa-sm text-white-50"></i> Create New
+                        <h1 class="h3 mb-0 text-gray-800">Company Branches</h1>
+                        <a href="#" data-toggle="modal" data-target="#createModal" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                            <i class="fas fa-plus fa-sm text-white-50"></i> Create Company Branch
                         </a>
                     </div>
 
@@ -54,86 +54,76 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">List of all users</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">List of all company branches</h6>
                         </div>
                         <div class="card-body">
                             <div class="table">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Current Werefa</th>
-                                            <th>Account Balance</th>
+                                            <th>Company</th>
+                                            <th>Branch Name</th>
+                                            <th>Receptionists</th>
+                                            <th>Werefa</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Current Werefa</th>
-                                            <th>Account Balance</th>
+                                            <th>Company</th>
+                                            <th>Branch Name</th>
+                                            <th>Receptionists</th>
+                                            <th>Werefa</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach($users as $user)
+                                        @foreach($companyBranches as $branch)
                                             <tr>
                                                 <td>
-                                                    {{$user->name}}<br>
+                                                    {{$branch->company->name}}
+                                                </td>
+                                                <td>
+                                                    <strong>{{$branch->name}}</strong><br>
+
                                                     <a href="#" data-toggle="modal" data-target="#editModal"
-                                                        class="btn btn-primary btn-icon-split" data-val="{{$user}}">
+                                                        class="btn btn-primary btn-icon-split" data-val="{{$branch}}">
                                                         <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                                         <span class="text">Edit</span>
                                                     </a>
+
                                                     <a href="#" data-toggle="modal" data-target="#deleteModal"
-                                                            class="btn btn-danger btn-icon-split" data-val="{{$user}}">
-                                                            <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
+                                                        class="btn btn-danger btn-icon-split" data-val="{{$branch}}">
+                                                        <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
                                                         <span class="text">Delete</span>
                                                     </a>
-                                                </td>
-                                                <td>{{$user->email}}</td>
-                                                <td>{{$user->phone}}</td>
-                                                <td>
 
+                                                </td>
+                                                <td class="fit">
                                                     <ul>
-                                                        @foreach($user->waitingAt() as $queue)
-                                                        <li>{{$queue->companyBranch->name}}</li>
+                                                        @foreach($branch->branchReceptionists as $receptionist)
+                                                        <li>
+                                                            {{$receptionist->name}}
+                                                            <a href="#" data-toggle="modal" data-target="#editReceptionistModal"
+                                                                class="btn btn-secondary" data-val="{{$receptionist}}" data-branch-val="{{$branch}}">Edit
+                                                            </a>
+                                                            <a href="#" data-toggle="modal" data-target="#deleteReceptionistModal"
+                                                                class="btn btn-danger" data-val="{{$receptionist}}" data-branch-val="{{$branch}}">Delete
+                                                            </a>
+                                                        </li>
                                                         @endforeach
                                                     </ul>
-
-                                                    <br>
-
-                                                    <a href="#" data-toggle="modal" data-target="#getInLineModal"
-                                                        class="btn btn-success btn-icon-split" data-val="{{$user}}" data-companies-val="{{$companies}}">
-                                                        <span class="icon text-white-50"><i class="fas fa-angle-double-right"></i></span>
-                                                        <span class="text">Get in line</span>
+                                                    <a href="#" data-toggle="modal" data-target="#addReceptionistModal"
+                                                        class="btn btn-success btn-icon-split" data-val="{{$branch}}">
+                                                        <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+                                                        <span class="text">Add more</span>
                                                     </a>
-
-                                                    <a href="#" data-toggle="modal" data-target="#queueModal"
-                                                        class="btn btn-primary btn-icon-split" data-val="{{$user}}">
-                                                        <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
-                                                        <span class="text">History</span>
-                                                    </a>
-
-
                                                 </td>
                                                 <td>
-                                                    <strong>{{ $user->remainingAmount() }} Birr</strong><br>
-                                                    <a href="#" data-toggle="modal" data-target="#topUpModal"
-                                                        class="btn btn-success btn-icon-split" data-val="{{$user}}">
-                                                        <span class="icon text-white-50"><i class="fas fa-angle-double-right"></i></span>
-                                                        <span class="text">Top Up</span>
-                                                    </a>
-                                                    <a href="#" data-toggle="modal" data-target="#balanceModal"
-                                                        class="btn btn-primary btn-icon-split" data-val="{{$user}}"
-                                                        data-balance-val="{{$user->balanceSheets}}" data-remaining-val="{{$user->remainingAmount()}}">
+                                                    <strong>{{$branch->peopleWaiting()}} people waiting</strong><br>
+                                                    <a href="#" data-toggle="modal" data-target="#queueModal"
+                                                        class="btn btn-primary btn-icon-split" data-val="{{$branch}}">
                                                         <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                                         <span class="text">History</span>
                                                     </a>
-
-
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -171,12 +161,17 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('sb-theme/js/demo/datatables-demo.js')}}"></script>
     <style>
+        .table td.fit, .table th.fit {
+            white-space: nowrap;
+            width: 1%;
+        }
+
         #dataTable_wrapper > div:first-of-type label {
             display: inline-flex;
         }
     </style>
 
-    @include('admin.user-forms')
+    @include('admin.companyBranches-forms')
 
 
 </body>

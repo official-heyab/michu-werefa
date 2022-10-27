@@ -49,7 +49,6 @@
 
                     @else
                         <li class="nav-item"><a class="nav-link" href="{{ route('login') }}" >Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('register') }}" >Register</a></li>
                     @endauth
                     </ul>
                 </div>
@@ -98,13 +97,13 @@
                     <thead>
                         <tr>
                             <th>List of companies</th>
-                            <th>Werefa</th>
+                            <th>Branches & Werefa</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>List of companies</th>
-                            <th>Werefa</th>
+                            <th>Branches & Werefa</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -116,19 +115,25 @@
                                     <strong>Werefa price: </strong>{{$company->ticket_price}}
                                 </td>
                                 <td  style="text-align: left;">
-                                    <strong>{{$company->peopleWaiting()}} people waiting</strong><br>
-                                    <a href="#" data-toggle="modal" data-target="#historyModal"
-                                        class="btn btn-primary btn-icon-split" data-val="{{$company}}">
-                                        <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
-                                        <span class="text">View Werefa</span>
-                                    </a>
-                                    @auth
-                                    <a href="#" data-toggle="modal" data-target="#getInLineModal"
-                                        class="btn btn-success btn-icon-split" data-val="{{$company}}" data-queue-val="{{$company->peopleWaiting()}}" >
-                                        <span class="icon text-white-50"><i class="fas fa-check"></i></span>
-                                        <span class="text">Get in line</span>
-                                    </a>
-                                    @endauth
+                                    @foreach($company->companyBranches as $branch)
+                                        <div>
+                                            <strong>{{$branch->name}}: {{$branch->peopleWaiting()}} people waiting</strong>
+                                            <a href="#" data-toggle="modal" data-target="#historyModal"
+                                                class="btn btn-primary btn-icon-split" data-val="{{$branch}}"
+                                                data-company-val="{{$company}}">
+                                                <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
+                                                <span class="text">View Werefa</span>
+                                            </a>
+                                            @auth
+                                            <a href="#" data-toggle="modal" data-target="#getInLineModal"
+                                                class="btn btn-success btn-icon-split" data-val="{{$branch}}"
+                                                data-company-val="{{$company}}" data-queue-val="{{$branch->peopleWaiting()}}" >
+                                                <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+                                                <span class="text">Get in line</span>
+                                            </a>
+                                            @endauth
+                                        </div>
+                                    @endforeach
                                 </td>
                             </tr>
                         @endforeach

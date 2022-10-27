@@ -17,13 +17,6 @@ class UserController extends Controller{
 
     }
 
-    public function index(){
-        //Return the appropriate company page according to the authentication
-        $data['users'] = User::with('queues.company')->get();
-        $data['companies'] = Company::all();
-        return view('admin.user',$data);
-    }
-
 
     public function store(Request $request){
 
