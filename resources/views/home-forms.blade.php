@@ -39,13 +39,11 @@
 
         $(this).find('span#title').html(company.name);
 
-        console.log(branch.branch_queues);
-
 
         for (var index in branch.branch_queues) {
             var queueDate = new Date(branch.branch_queues[index].created_at);
             tableBody +="<tr>";
-            tableBody +="<td>"+branch.branch_queues[index].user_id+"</td>";
+            tableBody +="<td>"+branch.branch_queues[index].user.name+"</td>";
             tableBody +="<td>"+branch.branch_queues[index].status+"</td>";
             tableBody +="<td class='fit'>"+queueDate.getHours()+":"+queueDate.getMinutes();
             tableBody +=" "+$.datepicker.formatDate('DD MM d, yy', queueDate)+"</td>";
@@ -75,7 +73,7 @@
             method='post' enctype='multipart/form-data'
             style="margin:0;">
                 @csrf
-                <input type="hidden" name="company">
+                <input type="hidden" name="branch">
                 <button type="submit" class="btn btn-success btn-block">Get in line</button>
             </form>
 
@@ -90,10 +88,12 @@
     //get value from links
     $('#getInLineModal').on('show.bs.modal', function (event) {
         var modalBody="";
-        var company  = $(event.relatedTarget).data('val');
+        var branch  = $(event.relatedTarget).data('val');
+        var company  = $(event.relatedTarget).data('company-val');
         var peopleWaiting  = $(event.relatedTarget).data('queue-val');
-        $(this).find('input[name=company]').val(company.id);
-        $(this).find('span#title').html(company.name);
+        $(this).find('input[name=branch]').val(branch.id);
+        $(this).find('span#title').html(branch.name);
+        console.log(company);
 
 
         modalBody +="<img width=100 src='"+company.logo+"'><br><br>";

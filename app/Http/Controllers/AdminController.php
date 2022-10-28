@@ -38,7 +38,7 @@ class AdminController extends Controller{
 
     public function companyBranches(){
         $data['companies'] = Company::all();
-        $data['companyBranches'] = CompanyBranch::with('branchQueues')->get();
+        $data['companyBranches'] = CompanyBranch::with('branchQueues.user')->get();
         $data['receptionists'] = BranchReceptionist::all();
         return view('admin.companyBranches',$data);
     }

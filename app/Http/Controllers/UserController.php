@@ -80,7 +80,7 @@ class UserController extends Controller{
         else //use session
             $user = User::find(Auth::user()->id);
 
-        $branch = CompanyBranch::find($request->input('company'));
+        $branch = CompanyBranch::find($request->input('branch'));
 
         //Check if user is waiting at that company
         $prevQueue = BranchQueue::where([

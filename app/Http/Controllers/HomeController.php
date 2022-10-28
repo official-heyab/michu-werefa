@@ -14,7 +14,7 @@ class HomeController extends Controller{
     }
 
     public function index(){
-        $data['companies'] = Company::with('companyBranches')->get();
+        $data['companies'] = Company::with('companyBranches.branchQueues.user')->get();
         return view('home',$data);
     }
 
