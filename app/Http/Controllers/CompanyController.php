@@ -17,6 +17,7 @@ class CompanyController extends Controller{
         //     'name'=>'required'
         // ]);
         $company = new Company;
+        $company->company_category_id = $request->input('category');
         $company->name = $request->input('name');
         $company->ticket_price = $request->input('price');
         $company->logo = "noimage.jpg";
@@ -32,6 +33,7 @@ class CompanyController extends Controller{
         // ]);
 
         $company = Company::find($request->input('id'));
+        $company->company_category_id = $request->input('category');
         $company->name = $request->input('name');
         $company->ticket_price = $request->input('price');
         $company->desc = $request->input('desc');

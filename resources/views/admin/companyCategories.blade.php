@@ -60,14 +60,42 @@
                             <div class="table">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr><th>Name</th></tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Companies</th>
+                                        </tr>
                                     </thead>
                                     <tfoot>
-                                        <tr><th>Name</th></tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Companies</th>
+                                        </tr>
                                     </tfoot>
                                     <tbody>
                                         @foreach($categories as $category)
-                                            <tr><td>{{$category->name}}</td></tr>
+                                            <tr>
+                                                <td>
+                                                    {{$category->name}} <br><br>
+                                                    <a href="#" data-toggle="modal" data-target="#editModal"
+                                                    class="btn btn-primary btn-icon-split" data-val="{{$category}}">
+                                                    <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
+                                                    <span class="text">Edit</span>
+                                                </a>
+
+                                                <a href="#" data-toggle="modal" data-target="#deleteModal"
+                                                    class="btn btn-danger btn-icon-split" data-val="{{$category}}">
+                                                    <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
+                                                    <span class="text">Delete</span>
+                                                </a>
+
+
+                                                </td>
+                                                <td>
+                                                    @foreach($category->companies as $company)
+                                                        {{ $company->name }}<br>
+                                                    @endforeach
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

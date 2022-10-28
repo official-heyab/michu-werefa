@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BranchReceptionist extends Model{
     use HasFactory;
 
-    public function branchCompany(){
-        return $this->belongsTo(BranchCompany::class);
+    public function companyBranch(){
+        return $this->belongsTo(CompanyBranch::class);
     }
 }

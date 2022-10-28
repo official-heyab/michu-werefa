@@ -13,6 +13,10 @@ aria-hidden="true">
                 <form action="{{route('company.store')}}" method='post' enctype='multipart/form-data'>
                     @csrf
                     <div class="form-group">
+                        <select class="form-select" name="category" id="selectCategory">
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <input type="text" class="form-control" name="name" placeholder="Name">
                     </div>
                     <div class="form-group row">
@@ -49,6 +53,10 @@ aria-hidden="true">
                 <form action="{{route('company.update')}}" method='post' enctype='multipart/form-data'>
                     @csrf
                     <input type="hidden" name="id">
+                    <div class="form-group">
+                        <select class="form-select" name="category" id="selectCategory">
+                        </select>
+                    </div>
                     <div class="form-group">
                         <input type="text" class="form-control" name="name" placeholder="Name">
                     </div>
@@ -110,15 +118,26 @@ aria-hidden="true">
 
 <script>
     //get value links
+    $('#editModal, #createModal').on('show.bs.modal', function (event) {
+        var categories  = $(event.relatedTarget).data('categories-val');
+        var selectCategory="";
+        for(var index in categories) {
+            selectCategory+= "<option value="+categories[index].id+">"+categories[index].name+"</option>";
+        }
+        $(this).find('#selectCategory').html(selectCategory);
+    });
+
+
+    //get value links
     $('#editModal, #deleteModal').on('show.bs.modal', function (event) {
         var company = $(event.relatedTarget).data('val');
 
         $(this).find('span#title').html(company.name);
         $(this).find('input[name=id]').val(company.id);
-
         $(this).find('input[name=name]').val(company.name);
         $(this).find('input[name=price]').val(company.ticket_price);
         $(this).find('textarea[name=desc]').val(company.desc);
+        $(this).find('select#selectCategory option[value='+ company.company_category_id+']').attr('selected','selected');
     });
 
 </script>

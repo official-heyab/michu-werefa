@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\BranchReceptionist;
-use App\Models\UserQueue;
+use App\Models\BranchQueue;
 
 class BranchReceptionistController extends Controller{
 
@@ -18,7 +18,7 @@ class BranchReceptionistController extends Controller{
         $receptionist->name = $request->input('name');
         $receptionist->email = $request->input('email');
         $receptionist->phone = $request->input('phone');
-        $receptionist->company_id = $request->input('id');
+        $receptionist->company_branch_id = $request->input('id');
         $receptionist->password = Hash::make($request->input('password'));
         $receptionist->save();
 
@@ -43,7 +43,7 @@ class BranchReceptionistController extends Controller{
 
     public function nextPerson(Request $request){
         $branchID = $request->input('id');
-        $queue = UserQueue::where([
+        $queue = BranchQueue::where([
             ['company_branch_id', '=', $branchID],
             ['status', '=', 'Waiting']
         ]);

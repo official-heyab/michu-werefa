@@ -20,7 +20,7 @@
 
     <li class="nav-item {{ (Route::currentRouteName() == 'admin.companyCategories') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.companyCategories') }}">
-            <i class="fas fa-fw fa-building"></i><span>Company Categories</span>
+            <i class="fas fa-fw fa-hippo"></i><span>Company Categories</span>
         </a>
     </li>
 
@@ -32,7 +32,7 @@
 
     <li class="nav-item {{ (Route::currentRouteName() == 'admin.companyBranches') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.companyBranches') }}">
-            <i class="fas fa-fw fa-building"></i><span>Branches & Receptionists</span>
+            <i class="fas fa-fw fa-rocket"></i><span>Branches & Receptionists</span>
         </a>
     </li>
 

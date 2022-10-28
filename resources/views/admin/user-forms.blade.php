@@ -221,16 +221,15 @@ aria-hidden="true">
     //get in line
     $('#getInLineModal').on('show.bs.modal', function (event) {
         var user = $(event.relatedTarget).data('val');
-        var companies  = $(event.relatedTarget).data('companies-val');
+        var branches  = $(event.relatedTarget).data('branches-val');
         $(this).find('span#title').html(user.name);
         $(this).find('input[name=id]').val(user.id);
         var selectCompany="<option selected value='0'>Open this menu</option>";
 
-        for(var index in companies) {
-            selectCompany+= "<option value="+companies[index].id+">"+companies[index].name+"</option>";
+        for(var index in branches) {
+            selectCompany+= "<option value="+branches[index].id+">"+branches[index].name+"</option>";
         }
 
-        console.log(companies);
         $(this).find('#selectCompany').html(selectCompany);
     });
 

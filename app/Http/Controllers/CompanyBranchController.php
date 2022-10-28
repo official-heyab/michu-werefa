@@ -19,13 +19,14 @@ class CompanyBranchController extends Controller{
         // $this->validate($request,[
         //     'name'=>'required'
         // ]);
-        $company = new Company;
-        $company->name = $request->input('name');
-        $company->ticket_price = $request->input('price');
-        $company->logo = "noimage.jpg";
-        $company->desc = $request->input('desc');
-        $company->save();
-        return redirect()->back()->with('success','Company Created');
+        $branch = new CompanyBranch;
+        $branch->name = $request->input('name');
+        $branch->company_id = $request->input('company');
+        $branch->estimated_queue_time = $request->input('queue_time');
+        $branch->working_hours = $request->input('working_hours');
+        $branch->desc = $request->input('desc');
+        $branch->save();
+        return redirect()->back()->with('success','Company Branch Created');
 
     }
 
@@ -34,19 +35,21 @@ class CompanyBranchController extends Controller{
         //     'name'=>'required'
         // ]);
 
-        $company = Company::find($request->input('id'));
-        $company->name = $request->input('name');
-        $company->ticket_price = $request->input('price');
-        $company->desc = $request->input('desc');
-        $company->save();
-        return redirect()->back()->with('success','Company Updated');
+        $branch = CompanyBranch::find($request->input('id'));
+        $branch->company_id = $request->input('company');
+        $branch->name = $request->input('name');
+        $branch->estimated_queue_time = $request->input('queue_time');
+        $branch->working_hours = $request->input('working_hours');
+        $branch->desc = $request->input('desc');
+        $branch->save();
+        return redirect()->back()->with('success','Company Branch Updated');
     }
 
 
     public function delete(Request $request){
-        $company = Company::find($request->input('id'));
-        $company->delete();
-        return redirect()->back()->with('success','Company Deleted');
+        $branch = CompanyBranch::find($request->input('id'));
+        $branch->delete();
+        return redirect()->back()->with('success','Company Branch Deleted');
     }
 
     public function addReceptionist(Request $request){
@@ -54,7 +57,7 @@ class CompanyBranchController extends Controller{
         $receptionist->name = $request->input('name');
         $receptionist->email = $request->input('email');
         $receptionist->phone = $request->input('phone');
-        $receptionist->company_id = $request->input('id');
+        $receptionist->company_branch_id = $request->input('id');
         $receptionist->password = Hash::make($request->input('password'));
         $receptionist->save();
 

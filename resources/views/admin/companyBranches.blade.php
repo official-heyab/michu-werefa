@@ -36,7 +36,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Company Branches</h1>
-                        <a href="#" data-toggle="modal" data-target="#createModal" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                        <a href="#" data-toggle="modal" data-target="#createModal" data-companies-val="{{$companies}}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
                             <i class="fas fa-plus fa-sm text-white-50"></i> Create Company Branch
                         </a>
                     </div>
@@ -61,16 +61,16 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Company</th>
-                                            <th>Branch Name</th>
+                                            <th>Name</th>
+                                            <th>Details</th>
                                             <th>Receptionists</th>
                                             <th>Werefa</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Company</th>
-                                            <th>Branch Name</th>
+                                            <th>Name</th>
+                                            <th>Details</th>
                                             <th>Receptionists</th>
                                             <th>Werefa</th>
                                         </tr>
@@ -79,13 +79,10 @@
                                         @foreach($companyBranches as $branch)
                                             <tr>
                                                 <td>
-                                                    {{$branch->company->name}}
-                                                </td>
-                                                <td>
-                                                    <strong>{{$branch->name}}</strong><br>
-
+                                                    <p>{{$branch->name}}</p>
+                                                    <strong>Company: </strong>{{$branch->company->name}}<br>
                                                     <a href="#" data-toggle="modal" data-target="#editModal"
-                                                        class="btn btn-primary btn-icon-split" data-val="{{$branch}}">
+                                                        class="btn btn-primary btn-icon-split" data-val="{{$branch}}"  data-companies-val="{{$companies}}" >
                                                         <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                                         <span class="text">Edit</span>
                                                     </a>
@@ -95,7 +92,11 @@
                                                         <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
                                                         <span class="text">Delete</span>
                                                     </a>
-
+                                                </td>
+                                                <td>
+                                                    <strong>Waiting time: </strong>{{$branch->estimated_queue_time}}mins<br>
+                                                    <strong>Working hours: </strong>{{$branch->working_hours}}<br>
+                                                    <p>{{$branch->desc}}</p>
                                                 </td>
                                                 <td class="fit">
                                                     <ul>
@@ -103,7 +104,7 @@
                                                         <li>
                                                             {{$receptionist->name}}
                                                             <a href="#" data-toggle="modal" data-target="#editReceptionistModal"
-                                                                class="btn btn-secondary" data-val="{{$receptionist}}" data-branch-val="{{$branch}}">Edit
+                                                                class="btn btn-secondary" data-val="{{$receptionist}}" data-companies-val="{{$companies}}"  data-branch-val="{{$branch}}">Edit
                                                             </a>
                                                             <a href="#" data-toggle="modal" data-target="#deleteReceptionistModal"
                                                                 class="btn btn-danger" data-val="{{$receptionist}}" data-branch-val="{{$branch}}">Delete

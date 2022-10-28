@@ -32,10 +32,12 @@ class AdminController extends Controller{
 
     public function companies(){
         $data['companies'] = Company::all();
+        $data['categories'] = CompanyCategory::all();
         return view('admin.companies',$data);
     }
 
     public function companyBranches(){
+        $data['companies'] = Company::all();
         $data['companyBranches'] = CompanyBranch::with('branchQueues')->get();
         $data['receptionists'] = BranchReceptionist::all();
         return view('admin.companyBranches',$data);
@@ -43,7 +45,7 @@ class AdminController extends Controller{
 
     public function users(){
         $data['users'] = User::with('branchQueues.companyBranch')->get();
-        $data['companies'] = Company::all();
+        $data['companyBranches'] = CompanyBranch::all();
         return view('admin.user',$data);
     }
 

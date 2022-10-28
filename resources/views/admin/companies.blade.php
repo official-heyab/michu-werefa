@@ -36,7 +36,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Company</h1>
-                        <a href="#" data-toggle="modal" data-target="#createModal" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                        <a href="#" data-toggle="modal" data-target="#createModal" data-categories-val="{{$categories}}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
                             <i class="fas fa-plus fa-sm text-white-50"></i> Create Company
                         </a>
                     </div>
@@ -62,11 +62,13 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
+                                            <th>Branches</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
+                                            <th>Branches</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -74,12 +76,12 @@
                                             <tr>
                                                 <td>
                                                     <img width=100 src="{{$company->logo}}">
-                                                    {{$company->name}}<br><br>
-                                                    <strong>Werefa price: </strong>{{$company->ticket_price}}
-                                                    <br><br>
+                                                    {{$company->name}}<br>
+                                                    <strong>Category: </strong>{{$company->companyCategory->name}}<br>
+                                                    <strong>Werefa price: </strong>{{$company->ticket_price}}<br>
 
                                                     <a href="#" data-toggle="modal" data-target="#editModal"
-                                                        class="btn btn-primary btn-icon-split" data-val="{{$company}}">
+                                                        class="btn btn-primary btn-icon-split" data-val="{{$company}}" data-categories-val="{{$categories}}">
                                                         <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                                         <span class="text">Edit</span>
                                                     </a>
@@ -90,6 +92,11 @@
                                                         <span class="text">Delete</span>
                                                     </a>
 
+                                                </td>
+                                                <td>
+                                                    @foreach($company->companyBranches as $branch)
+                                                        {{ $branch->name }}<br>
+                                                    @endforeach
                                                 </td>
                                             </tr>
                                         @endforeach

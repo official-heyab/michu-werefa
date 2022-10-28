@@ -106,7 +106,7 @@
                                                     <br>
 
                                                     <a href="#" data-toggle="modal" data-target="#getInLineModal"
-                                                        class="btn btn-success btn-icon-split" data-val="{{$user}}" data-companies-val="{{$companies}}">
+                                                        class="btn btn-success btn-icon-split" data-val="{{$user}}" data-branches-val="{{$companyBranches}}">
                                                         <span class="icon text-white-50"><i class="fas fa-angle-double-right"></i></span>
                                                         <span class="text">Get in line</span>
                                                     </a>
@@ -128,7 +128,7 @@
                                                     </a>
                                                     <a href="#" data-toggle="modal" data-target="#balanceModal"
                                                         class="btn btn-primary btn-icon-split" data-val="{{$user}}"
-                                                        data-balance-val="{{$user->balanceSheets}}" data-remaining-val="{{$user->remainingAmount()}}">
+                                                        data-balance-val="{{$user->userBalanceSheets}}" data-remaining-val="{{$user->remainingAmount()}}">
                                                         <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                                         <span class="text">History</span>
                                                     </a>

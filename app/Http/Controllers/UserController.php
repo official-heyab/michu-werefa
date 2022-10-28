@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
-use App\Models\Company;
-use App\Models\Queue;
-use App\Models\BalanceSheet;
+use App\Models\CompanyBranch;
+use App\Models\BranchQueue;
+use App\Models\UserBalanceSheet;
 
 class UserController extends Controller{
 
@@ -80,35 +80,35 @@ class UserController extends Controller{
         else //use session
             $user = User::find(Auth::user()->id);
 
-        $company = Company::find($request->input('company'));
+        $branch = CompanyBranch::find($request->input('company'));
 
         //Check if user is waiting at that company
-        $prevQueue = Queue::where([
+        $prevQueue = BranchQueue::where([
             'user_id'=>$user->id,
-            'company_id'=>$company->id,
+            'company_branch_id'=>$branch->id,
             'status'=>'Waiting'])
             ->get();
 
         if(count($prevQueue)>0)
             return redirect()->back()->with('error','User is already waiting');
 
-        $queue = new Queue;
+        $queue = new BranchQueue;
         $queue->user_id = $user->id;
-        $queue->company_id = $company->id;
+        $queue->company_branch_id = $branch->id;
         $queue->status = 'Waiting';
         $queue->save();
 
         // Balance Sheet
-        $balance = new BalanceSheet;
+        $balance = new UserBalanceSheet;
         $balance->user_id = $user->id;
-        $balance->transaction_id = $company->id;
+        $balance->transaction_id = $branch->id;
         $balance->isWithdrawal = 1;
-        $balance->amount = $company->ticket_price;
+        $balance->amount = $branch->company->ticket_price;
         $balance->save();
 
 
 
-        if($company->ticket_price > $balance->current_amount){
+        if($branch->company->ticket_price > $balance->current_amount){
             //Check this only when user creates queue
             //Otherwise its free
             //Display error message
@@ -124,7 +124,7 @@ class UserController extends Controller{
         //     'email'=>'email|required'
         // ]);
 
-        $balanceSheet = new BalanceSheet;
+        $balanceSheet = new UserBalanceSheet;
         $balanceSheet->isWithdrawal = 0;
         $balanceSheet->user_id = $request->input('id');
         $balanceSheet->amount = $request->input('refill');
