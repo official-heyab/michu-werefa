@@ -27,12 +27,16 @@ class User extends Authenticatable{
         'email_verified_at' => 'datetime',
     ];
 
-    public function userBalanceSheets(){
-        return $this->hasMany(UserBalanceSheet::class);
+    public function transactions(){
+        return $this->hasMany(UserTransactions::class);
     }
 
-    public function branchQueues(){
-        return $this->hasMany(BranchQueue::class);
+    public function queues(){
+        return $this->hasMany(UserQueues::class);
+    }
+
+    public function roles(){
+        return $this->belongsToMany(Roles::class, 'user_roles');
     }
 
     public function waitingAt(){
@@ -41,7 +45,7 @@ class User extends Authenticatable{
 
     public function remainingAmount(){
         $amount = 0;
-        foreach($this->userBalanceSheets as $balance){
+        foreach($this->transactions as $balance){
             if($balance->isWithdrawal)
                 $amount -= $balance->amount;
             else

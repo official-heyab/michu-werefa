@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserHomeController;
 use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\UserController;
@@ -30,8 +31,11 @@ Route::get('/services', [HomeController::class, 'services'])
 Route::get('/welcome', [HomeController::class, 'welcome'])
     ->name('welcome');
 
-Route::get('/user/home', [HomeController::class, 'userHome'])
-    ->name('user.home');
+Route::get('/user', [UserHomeController::class, 'index'])
+    ->middleware(['auth'])->name('user.home');
+
+Route::get('/user/profile', [UserHomeController::class, 'profile'])
+    ->middleware(['auth'])->name('user.profile');
 
 
 //Admin Controller

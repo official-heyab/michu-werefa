@@ -4,12 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBranchQueuesTable extends Migration{
+class CreateUserQueuesTable extends Migration{
 
     public function up(){
-        Schema::create('branch_queues', function (Blueprint $table) {
+        Schema::create('user_queues', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('company_branch_id');
             $table->string('status',100);
             $table->timestamps();
@@ -19,6 +20,11 @@ class CreateBranchQueuesTable extends Migration{
             ->on('users')
             ->onDelete('cascade');
 
+            $table->foreign('company_id')
+            ->references('id')
+            ->on('companies')
+            ->onDelete('cascade');
+
             $table->foreign('company_branch_id')
             ->references('id')
             ->on('company_branches')
@@ -26,7 +32,8 @@ class CreateBranchQueuesTable extends Migration{
         });
     }
 
+
     public function down(){
-        Schema::dropIfExists('branch_queues');
+        Schema::dropIfExists('user_queues');
     }
 }

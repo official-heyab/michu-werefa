@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BranchReceptionist extends Model{
+class UserTransactions extends Model{
     use HasFactory;
 
-    public function companyBranch(){
-        return $this->belongsTo(CompanyBranch::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

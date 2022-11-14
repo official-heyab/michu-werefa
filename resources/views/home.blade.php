@@ -33,7 +33,7 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="#">Profile</a>
+                          <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
                           <a class="dropdown-item" href="{{ route('admin.home') }}">Admin Panel</a>
                           <form method="POST" action="{{ route('logout') }}">
                             @csrf
