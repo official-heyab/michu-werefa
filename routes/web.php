@@ -9,7 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyCategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyBranchController;
-use App\Http\Controllers\BranchReceptionistController;
+use App\Http\Controllers\ReceptionistController;
 
 //Auth Controller
 require __DIR__.'/auth.php';
@@ -59,6 +59,12 @@ Route::get('/admin/companyBranches', [AdminController::class, 'companyBranches']
 
 Route::get('/admin/users', [AdminController::class, 'users'])
     ->middleware(['auth'])->name('admin.users');
+
+Route::get('/admin/receptionists', [AdminController::class, 'receptionists'])
+    ->middleware(['auth'])->name('admin.receptionists');
+
+Route::get('/admin/admins', [AdminController::class, 'admins'])
+    ->middleware(['auth'])->name('admin.admins');
 
 
 //User Controller
@@ -111,17 +117,14 @@ Route::post('/companyBranch/delete', [CompanyBranchController::class, 'delete'])
     ->middleware(['auth'])->name('companyBranch.delete');
 
 
-//Branch Receptionist Controller
-Route::post('/branchReceptionist/store', [BranchReceptionistController::class, 'store'])
-    ->middleware(['auth'])->name('branchReceptionist.store');
+//Receptionist Controller
+Route::post('/receptionist/store', [ReceptionistController::class, 'store'])
+    ->middleware(['auth'])->name('receptionist.store');
 
-Route::post('/branchReceptionist/update', [BranchReceptionistController::class, 'update'])
-    ->middleware(['auth'])->name('branchReceptionist.update');
+Route::post('/receptionist/delete', [ReceptionistController::class, 'delete'])
+    ->middleware(['auth'])->name('receptionist.delete');
 
-Route::post('/branchReceptionist/delete', [BranchReceptionistController::class, 'delete'])
-    ->middleware(['auth'])->name('branchReceptionist.delete');
-
-Route::post('/branchReceptionist/nextPerson', [BranchReceptionistController::class, 'nextPerson'])
-    ->middleware(['auth'])->name('branchReceptionist.nextPerson');
+Route::post('/receptionist/nextPerson', [ReceptionistController::class, 'nextPerson'])
+    ->middleware(['auth'])->name('receptionist.nextPerson');
 
 

@@ -40,7 +40,7 @@ class User extends Authenticatable{
     }
 
     public function waitingAt(){
-        return $this->branchQueues->where('status', 'Waiting');
+        return $this->queues->where('status', 'Waiting');
     }
 
     public function remainingAmount(){

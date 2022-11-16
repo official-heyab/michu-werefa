@@ -62,7 +62,6 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Details</th>
                                             <th>Receptionists</th>
                                             <th>Werefa</th>
                                         </tr>
@@ -70,7 +69,6 @@
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Details</th>
                                             <th>Receptionists</th>
                                             <th>Werefa</th>
                                         </tr>
@@ -81,6 +79,10 @@
                                                 <td>
                                                     <p>{{$branch->name}}</p>
                                                     <strong>Company: </strong>{{$branch->company->name}}<br>
+                                                    <strong>Waiting time: </strong>{{$branch->estimated_queue_time}}mins<br>
+                                                    <strong>Working hours: </strong>{{$branch->working_hours}}<br>
+                                                    <p>{{$branch->desc}}</p><br>
+
                                                     <a href="#" data-toggle="modal" data-target="#editModal"
                                                         class="btn btn-primary btn-icon-split" data-val="{{$branch}}"  data-companies-val="{{$companies}}" >
                                                         <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
@@ -93,27 +95,21 @@
                                                         <span class="text">Delete</span>
                                                     </a>
                                                 </td>
-                                                <td>
-                                                    <strong>Waiting time: </strong>{{$branch->estimated_queue_time}}mins<br>
-                                                    <strong>Working hours: </strong>{{$branch->working_hours}}<br>
-                                                    <p>{{$branch->desc}}</p>
-                                                </td>
                                                 <td class="fit">
                                                     <ul>
-                                                        @foreach($branch->branchReceptionists as $receptionist)
+                                                        @foreach($branch->receptionists as $receptionist)
                                                         <li>
                                                             {{$receptionist->name}}
-                                                            <a href="#" data-toggle="modal" data-target="#editReceptionistModal"
-                                                                class="btn btn-secondary" data-val="{{$receptionist}}" data-companies-val="{{$companies}}"  data-branch-val="{{$branch}}">Edit
-                                                            </a>
                                                             <a href="#" data-toggle="modal" data-target="#deleteReceptionistModal"
-                                                                class="btn btn-danger" data-val="{{$receptionist}}" data-branch-val="{{$branch}}">Delete
+                                                                class="btn btn-danger"
+                                                                 data-val="{{$receptionist}}" data-branch-val="{{$branch}}">Delete
                                                             </a>
                                                         </li>
                                                         @endforeach
                                                     </ul>
                                                     <a href="#" data-toggle="modal" data-target="#addReceptionistModal"
-                                                        class="btn btn-success btn-icon-split" data-val="{{$branch}}">
+                                                        class="btn btn-success btn-icon-split" data-val="{{$branch}}"
+                                                    >
                                                         <span class="icon text-white-50"><i class="fas fa-check"></i></span>
                                                         <span class="text">Add more</span>
                                                     </a>

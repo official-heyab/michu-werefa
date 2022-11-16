@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
+//use Auth;
 use App\Models\User;
 use App\Models\CompanyBranch;
-use App\Models\BranchQueue;
-use App\Models\UserBalanceSheet;
+use App\Models\UserQueues;
+use App\Models\UserTransactions;
 
 class UserController extends Controller{
 
@@ -32,6 +33,9 @@ class UserController extends Controller{
         $user->phone = $request->input('phone');
         $user->password = Hash::make($request->input('password'));
         $user->save();
+
+
+        $user->roles()->sync($request->input('role'));
 
         // $balance = new BalanceSheet;
         // $balance->user_id = $user->id;
@@ -58,6 +62,8 @@ class UserController extends Controller{
         $user->phone = $request->input('phone');
         $user->save();
 
+        $user->roles()->sync($request->input('role'));
+
         return redirect()->back()->with('success','User Updated');
     }
 
@@ -83,7 +89,7 @@ class UserController extends Controller{
         $branch = CompanyBranch::find($request->input('branch'));
 
         //Check if user is waiting at that company
-        $prevQueue = BranchQueue::where([
+        $prevQueue = UserQueues::where([
             'user_id'=>$user->id,
             'company_branch_id'=>$branch->id,
             'status'=>'Waiting'])
@@ -92,16 +98,17 @@ class UserController extends Controller{
         if(count($prevQueue)>0)
             return redirect()->back()->with('error','User is already waiting');
 
-        $queue = new BranchQueue;
+        $queue = new UserQueues;
         $queue->user_id = $user->id;
         $queue->company_branch_id = $branch->id;
+        $queue->company_id = $branch->company_id;
         $queue->status = 'Waiting';
         $queue->save();
 
         // Balance Sheet
-        $balance = new UserBalanceSheet;
+        $balance = new UserTransactions;
         $balance->user_id = $user->id;
-        $balance->transaction_id = $branch->id;
+        $balance->depositer_or_queue_id = $branch->id;
         $balance->isWithdrawal = 1;
         $balance->amount = $branch->company->ticket_price;
         $balance->save();
@@ -124,11 +131,11 @@ class UserController extends Controller{
         //     'email'=>'email|required'
         // ]);
 
-        $balanceSheet = new UserBalanceSheet;
+        $balanceSheet = new UserTransactions;
         $balanceSheet->isWithdrawal = 0;
         $balanceSheet->user_id = $request->input('id');
         $balanceSheet->amount = $request->input('refill');
-        $balanceSheet->transaction_id = 1; //use session user id
+        $balanceSheet->depositer_or_queue_id = Auth::user()->id; //use session user id
         $balanceSheet->save();
 
         return redirect()->back()->with('success','User Balance Topped Up');

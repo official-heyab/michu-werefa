@@ -4,46 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\BranchReceptionist;
-use App\Models\BranchQueue;
+use App\Models\User;
+use App\Models\UserQueues;
+use App\Models\Receptionists;
 
-class BranchReceptionistController extends Controller{
+class ReceptionistController extends Controller{
 
     public function __construct(){
 
     }
 
     public function store(Request $request){
-        $receptionist = new BranchReceptionist;
-        $receptionist->name = $request->input('name');
-        $receptionist->email = $request->input('email');
-        $receptionist->phone = $request->input('phone');
+        $user = User::find($request->input('user_id'));
+        $uri = $user->roles()->where("roles_id", "=",2)->withPivot("id")->orderBy('created_at', 'desc')->first()->pivot->id;
+
+
+        $receptionist = new Receptionists;
+        $receptionist->user_id = $user->id;;
+        $receptionist->user_role_id = $uri;
         $receptionist->company_branch_id = $request->input('id');
-        $receptionist->password = Hash::make($request->input('password'));
         $receptionist->save();
 
         return redirect()->back()->with('success','Receptionist Added');
      }
 
-    public function update(Request $request){
-        $receptionist = BranchReceptionist::find($request->input('id'));
-        $receptionist->name = $request->input('name');
-        $receptionist->email = $request->input('email');
-        $receptionist->phone = $request->input('phone');
-        $receptionist->save();
-
-        return redirect()->back()->with('success','Receptionist Updated');
-    }
-
     public function delete(Request $request){
-        $receptionist = BranchReceptionist::find($request->input('id'));
-        $receptionist->delete();
+        $receptionist = Receptionists::where('company_branch_id', $request->input('id'))
+        ->where('user_id', $request->input('user_id'))->get();
+        $receptionist->each->delete();
         return redirect()->back()->with('success','Receptionist Deleted');
     }
 
     public function nextPerson(Request $request){
         $branchID = $request->input('id');
-        $queue = BranchQueue::where([
+        $queue = UserQueues::where([
             ['company_branch_id', '=', $branchID],
             ['status', '=', 'Waiting']
         ]);

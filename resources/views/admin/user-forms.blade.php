@@ -16,8 +16,23 @@ aria-hidden="true">
                         <input type="text" class="form-control" name="name" placeholder="Name">
                     </div>
                     <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="roles">Choose role:</label>
+                        </div>
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="email" class="form-control" name="email" placeholder="Email">
+                            <select name="role" id="roles">
+                                @foreach($roles as $role)
+                                    <option value={{ $role->id }}>{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="email">Enter email:</label>
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="email" class="form-control" name="email" id="email">
                         </div>
                     </div>
                     <div class="form-group">
@@ -55,8 +70,23 @@ aria-hidden="true">
                         <input type="text" class="form-control" name="name" placeholder="Name">
                     </div>
                     <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="roles">Choose role:</label>
+                        </div>
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="email" class="form-control" name="email" placeholder="Email">
+                            <select name="role" id="roles">
+                                @foreach($roles as $role)
+                                    <option value={{ $role->id }}>{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="email">Enter email:</label>
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="email" class="form-control" name="email" id="email">
                         </div>
                     </div>
                     <div class="form-group">
@@ -92,8 +122,23 @@ aria-hidden="true">
                         <input type="text" disabled class="form-control" name="name" placeholder="Name">
                     </div>
                     <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="roles">Choose role:</label>
+                        </div>
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="email" disabled class="form-control" name="email" placeholder="Email">
+                            <select disabled name="role" id="roles">
+                                @foreach($roles as $role)
+                                    <option value={{ $role->id }}>{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="email">Enter email:</label>
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="email" disabled class="form-control" name="email" id="email">
                         </div>
                     </div>
                     <div class="form-group">
@@ -113,10 +158,12 @@ aria-hidden="true">
     //get value from update, delete links
     $('#editModal, #deleteModal').on('show.bs.modal', function (event) {
         var user = $(event.relatedTarget).data('val');
+        console.log(user);
+        console.log($(this).find('select[name=role]').val());
 
         $(this).find('span#title').html(user.name);
         $(this).find('input[name=id]').val(user.id);
-
+        $(this).find('select[name=role]').val(user.roles[0].id).change();
         $(this).find('input[name=name]').val(user.name);
         $(this).find('input[name=email]').val(user.email);
         $(this).find('input[name=phone]').val(user.phone);
@@ -170,12 +217,11 @@ aria-hidden="true">
         var user  = $(event.relatedTarget).data('val');
         $(this).find('span#title').html(user.name);
 
-
         for (var index in user.queues) {
             var queueDate = new Date(user.queues[index].created_at);
 
             tableBody +="<tr>";
-            tableBody +="<td>"+user.queues[index].company.name+"</td>";
+            tableBody +="<td>"+user.queues[index].company_branch.name+"</td>";
             tableBody +="<td>"+user.queues[index].status+"</td>";
             tableBody +="<td class='fit'>"+queueDate.getHours()+":"+queueDate.getMinutes();
             tableBody +=" "+$.datepicker.formatDate('DD, MM d yy', queueDate)+"</td>";
@@ -204,7 +250,7 @@ aria-hidden="true">
                     @csrf
                     <input type="hidden" name="id">
                     <div class="form-group">
-                        <select class="form-select" name="company" id="selectCompany">
+                        <select class="form-select" name="branch" id="selectCompany">
                         </select>
                     </div>
                     <button type="submit" class="btn btn-success btn-block">Get in line</button>
@@ -284,6 +330,7 @@ aria-hidden="true">
         $(this).find('input[name=id]').val(user.id);
         $(this).find('span#title').html(user.name);
         $(this).find('span#remaining').html(remainingAmount);
+
 
 
         for (var index in balanceSheets) {

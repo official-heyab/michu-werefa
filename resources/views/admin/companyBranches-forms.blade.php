@@ -143,28 +143,21 @@ aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create Receptionist for <span id="title"></span></h5>
+                <h5 class="modal-title" id="exampleModalLabel">Choose Receptionist for <span id="title"></span></h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('branchReceptionist.store')}}" method='post' enctype='multipart/form-data'>
+                <form action="{{route('receptionist.store')}}" method='post' enctype='multipart/form-data'>
                     @csrf
                     <input type="hidden" name="id">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Name">
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="email" class="form-control" name="email" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="phone" placeholder="Phone">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Password">
+                        <select name="user_id" id="receptionist">
+                            @foreach($receptionists as $recep)
+                                <option value={{ $recep->id }}>{{ $recep->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Register</button>
                 </form>
@@ -176,43 +169,6 @@ aria-hidden="true">
     </div>
 </div>
 
- <!-- Edit Receptionist -->
- <div class="modal fade" id="editReceptionistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
- aria-hidden="true">
-     <div class="modal-dialog" role="document">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title" id="exampleModalLabel">Editing <span id="title"></span>  </h5>
-                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">×</span>
-                 </button>
-             </div>
-             <div class="modal-body">
-                 <form action="{{route('branchReceptionist.update')}}" method='post' enctype='multipart/form-data'>
-                     @csrf
-                     <input type="hidden" name="id">
-
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Name">
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="email" class="form-control" name="email" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="phone" placeholder="Phone">
-                    </div>
-
-                     <button type="submit" class="btn btn-primary btn-block">Update</button>
-                 </form>
-             </div>
-             <div class="modal-footer">
-                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-             </div>
-         </div>
-     </div>
- </div>
 
 <!-- Delete Receptionist -->
 <div class="modal fade" id="deleteReceptionistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -226,20 +182,10 @@ aria-hidden="true">
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('branchReceptionist.delete')}}" method='post' enctype='multipart/form-data'>
+                <form action="{{route('receptionist.delete')}}" method='post' enctype='multipart/form-data'>
                     @csrf
                     <input type="hidden" name="id">
-                    <div class="form-group">
-                        <input type="text" disabled class="form-control" name="name" placeholder="Name">
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="email" disabled class="form-control" name="email" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" disabled class="form-control" name="phone" placeholder="Phone">
-                    </div>
+                    <input type="hidden" name="user_id">
                     <button type="submit" class="btn btn-danger btn-block">Delete</button>
                 </form>
             </div>
@@ -254,21 +200,19 @@ aria-hidden="true">
     //get value from links
     $('#addReceptionistModal').on('show.bs.modal', function (event) {
         var branch = $(event.relatedTarget).data('val');
+
         $(this).find('span#title').html(branch.name);
         $(this).find('input[name=id]').val(branch.id);
     });
 
 
-    $('#editReceptionistModal, #deleteReceptionistModal').on('show.bs.modal', function (event) {
+    $('#deleteReceptionistModal').on('show.bs.modal', function (event) {
         var branch = $(event.relatedTarget).data('branch-val');
         var receptionist = $(event.relatedTarget).data('val');
 
         $(this).find('span#title').html(receptionist.name);
-        $(this).find('input[name=id]').val(receptionist.id);
-
-        $(this).find('input[name=name]').val(receptionist.name);
-        $(this).find('input[name=email]').val(receptionist.email);
-        $(this).find('input[name=phone]').val(receptionist.phone);
+        $(this).find('input[name=id]').val(branch.id);
+        $(this).find('input[name=user_id]').val(receptionist.id);
     });
 </script>
 
@@ -286,7 +230,7 @@ aria-hidden="true">
             </div>
             <div class="modal-body">
                 <br>
-                <form action="{{route('branchReceptionist.nextPerson')}}" method='post' enctype='multipart/form-data'>
+                <form action="{{route('receptionist.nextPerson')}}" method='post' enctype='multipart/form-data'>
                     @csrf
                     <input type="hidden" name="id">
                     <button type="submit" class="btn btn-success btn-block">Go to Next Person</button>
@@ -327,11 +271,11 @@ aria-hidden="true">
         $(this).find('input[name=id]').val(branch.id);
         $(this).find('span#title').html(branch.name);
 
-        for (var index in branch.branch_queues) {
-            var queueDate = new Date(branch.branch_queues[index].created_at);
+        for (var index in branch.queues) {
+            var queueDate = new Date(branch.queues[index].created_at);
             tableBody +="<tr>";
-            tableBody +="<td>"+branch.branch_queues[index].user.name+"</td>";
-            tableBody +="<td>"+branch.branch_queues[index].status+"</td>";
+            tableBody +="<td>"+branch.queues[index].user.name+"</td>";
+            tableBody +="<td>"+branch.queues[index].status+"</td>";
             tableBody +="<td class='fit'>"+queueDate.getHours()+":"+queueDate.getMinutes();
             tableBody +=" "+$.datepicker.formatDate('DD MM d, yy', queueDate)+"</td>";
             tableBody +="</tr>";

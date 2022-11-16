@@ -54,7 +54,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">List of all users</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">List of all receptionists</h6>
                         </div>
                         <div class="card-body">
                             <div class="table">
@@ -64,8 +64,6 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
-                                            <th>Current Werefa</th>
-                                            <th>Account Balance</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -73,8 +71,6 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
-                                            <th>Current Werefa</th>
-                                            <th>Account Balance</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -100,46 +96,6 @@
                                                 </td>
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->phone}}</td>
-                                                <td>
-
-                                                    <ul>
-                                                        @foreach($user->waitingAt() as $queue)
-                                                        <li>{{$queue->companyBranch->name}}</li>
-                                                        @endforeach
-                                                    </ul>
-
-                                                    <br>
-
-                                                    <a href="#" data-toggle="modal" data-target="#getInLineModal"
-                                                        class="btn btn-success btn-icon-split" data-val="{{$user}}" data-branches-val="{{$companyBranches}}">
-                                                        <span class="icon text-white-50"><i class="fas fa-angle-double-right"></i></span>
-                                                        <span class="text">Get in line</span>
-                                                    </a>
-
-                                                    <a href="#" data-toggle="modal" data-target="#queueModal"
-                                                        class="btn btn-primary btn-icon-split" data-val="{{$user}}">
-                                                        <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
-                                                        <span class="text">History</span>
-                                                    </a>
-
-
-                                                </td>
-                                                <td>
-                                                    <strong>{{ $user->remainingAmount() }} Birr</strong><br>
-                                                    <a href="#" data-toggle="modal" data-target="#topUpModal"
-                                                        class="btn btn-success btn-icon-split" data-val="{{$user}}">
-                                                        <span class="icon text-white-50"><i class="fas fa-angle-double-right"></i></span>
-                                                        <span class="text">Top Up</span>
-                                                    </a>
-                                                    <a href="#" data-toggle="modal" data-target="#balanceModal"
-                                                        class="btn btn-primary btn-icon-split" data-val="{{$user}}"
-                                                        data-balance-val="{{$user->transactions}}" data-remaining-val="{{$user->remainingAmount()}}">
-                                                        <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
-                                                        <span class="text">History</span>
-                                                    </a>
-
-
-                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

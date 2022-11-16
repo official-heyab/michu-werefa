@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class CompanyBranch extends Model{
     use HasFactory;
 
-    public function branchReceptionists(){
-        return $this->hasMany(BranchReceptionist::class);
+    public function receptionists(){
+        return $this->belongsToMany(User::class, 'receptionists')->withPivot('user_id','user_role_id');
     }
 
-    public function branchQueues(){
-        return $this->hasMany(BranchQueue::class);
+    public function queues(){
+        return $this->hasMany(UserQueues::class);
     }
 
     public function peopleWaiting(){
-        return $this->branchQueues->where('status', 'Waiting')->count();
+        return $this->queues->where('status', 'Waiting')->count();
     }
 
     public function company(){

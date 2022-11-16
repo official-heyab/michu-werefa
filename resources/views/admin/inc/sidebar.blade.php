@@ -32,13 +32,25 @@
 
     <li class="nav-item {{ (Route::currentRouteName() == 'admin.companyBranches') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.companyBranches') }}">
-            <i class="fas fa-fw fa-rocket"></i><span>Branches & Receptionists</span>
+            <i class="fas fa-fw fa-rocket"></i><span>Company Branches </span>
         </a>
     </li>
 
     <li class="nav-item {{ (Route::currentRouteName() == 'admin.users') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.users') }}">
             <i class="fas fa-fw fa-user"></i><span>Users</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ (Route::currentRouteName() == 'admin.receptionists') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.receptionists') }}">
+            <i class="fas fa-fw fa-user"></i><span>Receptionists</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ (Route::currentRouteName() == 'admin.admins') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.admins') }}">
+            <i class="fas fa-fw fa-user"></i><span>Admins</span>
         </a>
     </li>
 
