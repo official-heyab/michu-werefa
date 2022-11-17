@@ -17,15 +17,13 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#page-top">
+                <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="{{ asset('images/logo.png') }}" width=150>
                 </a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0" style="align-items: center;">
-                        <li class="nav-item"><a class="nav-link" href="#page-top">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#companies">Companies</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                     @auth
                     <li class="nav-item dropdown show">
                         <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,7 +32,11 @@
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                           <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
+                          @if($isReceptionist)
+                          <a class="dropdown-item" href="{{ route('receptionist.home') }}">Receptionist Panel</a>
+                          @else
                           <a class="dropdown-item" href="{{ route('admin.home') }}">Admin Panel</a>
+                          @endif
                           <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a class="dropdown-item" href="#"
@@ -81,7 +83,7 @@
         </section>
 
         <input type="hidden" id="userData" value="{{ $user }}"/>
-        <input type="hidden" id="userBalanceSheets" value="{{ $user->userBalanceSheets }}"/>
+        <input type="hidden" id="userBalanceSheets" value="{{ $user->transactions }}"/>
 
         <!-- Werefa-->
         <section class="page-section" id="companies">
@@ -195,21 +197,24 @@
             var tableBody="";
             var user  = JSON.parse($("#userData").val());
 
-            for (var index in user.branch_queues) {
-                var queueDate = new Date(user.branch_queues[index].created_at);
+            for (var index in user.queues) {
+                var queueDate = new Date(user.queues[index].created_at);
+
                 tableBody +="<tr>";
-                tableBody +="<td>"+user.branch_queues[index].company_branch.name+"</td>";
-                tableBody +="<td>"+user.branch_queues[index].status+"</td>";
+                tableBody +="<td>"+user.queues[index].company_branch.name+"</td>";
+                tableBody +="<td>"+user.queues[index].status+"</td>";
                 tableBody +="<td class='fit'>"+queueDate.getHours()+":"+queueDate.getMinutes();
                 tableBody +=" "+$.datepicker.formatDate('DD, MM d yy', queueDate)+"</td>";
                 tableBody +="</tr>";
             }
+
 
             $('div#queueTable table tbody').html(tableBody);
 
 
             var tableBody="";
             var balanceSheets  = JSON.parse($("#userBalanceSheets").val());
+
 
             for (var index in balanceSheets) {
                 var transDate = new Date(balanceSheets[index].created_at);

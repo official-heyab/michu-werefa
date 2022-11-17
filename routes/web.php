@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserHomeController;
+use App\Http\Controllers\ReceptionistHomeController;
 use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\UserController;
@@ -31,11 +32,20 @@ Route::get('/services', [HomeController::class, 'services'])
 Route::get('/welcome', [HomeController::class, 'welcome'])
     ->name('welcome');
 
+//User home controller
 Route::get('/user', [UserHomeController::class, 'index'])
     ->middleware(['auth'])->name('user.home');
 
 Route::get('/user/profile', [UserHomeController::class, 'profile'])
     ->middleware(['auth'])->name('user.profile');
+
+
+//Receptionist home controller
+Route::get('/receptionist', [ReceptionistHomeController::class, 'index'])
+    ->middleware(['auth'])->name('receptionist.home');
+
+Route::get('/receptionist/queue', [ReceptionistHomeController::class, 'queue'])
+    ->middleware(['auth'])->name('receptionist.queue');
 
 
 //Admin Controller

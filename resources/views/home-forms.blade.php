@@ -40,11 +40,11 @@
         $(this).find('span#title').html(company.name);
 
 
-        for (var index in branch.branch_queues) {
-            var queueDate = new Date(branch.branch_queues[index].created_at);
+        for (var index in branch.queues) {
+            var queueDate = new Date(branch.queues[index].created_at);
             tableBody +="<tr>";
-            tableBody +="<td>"+branch.branch_queues[index].user.name+"</td>";
-            tableBody +="<td>"+branch.branch_queues[index].status+"</td>";
+            tableBody +="<td>"+branch.queues[index].user.name+"</td>";
+            tableBody +="<td>"+branch.queues[index].status+"</td>";
             tableBody +="<td class='fit'>"+queueDate.getHours()+":"+queueDate.getMinutes();
             tableBody +=" "+$.datepicker.formatDate('DD MM d, yy', queueDate)+"</td>";
             tableBody +="</tr>";

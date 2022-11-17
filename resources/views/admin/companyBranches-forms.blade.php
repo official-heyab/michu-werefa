@@ -122,7 +122,6 @@ aria-hidden="true">
     //get value links
     $('#editModal, #deleteModal').on('show.bs.modal', function (event) {
         var branch = $(event.relatedTarget).data('val');
-        console.log(branch);
 
         $(this).find('span#title').html(branch.name);
         $(this).find('input[name=id]').val(branch.id);

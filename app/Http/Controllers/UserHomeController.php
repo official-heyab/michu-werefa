@@ -16,12 +16,14 @@ class UserHomeController extends Controller{
     }
 
     public function index(){
-        $data['companies'] = Company::with('companyBranches.branchQueues.user')->get();
+        $data['isReceptionist'] = true;
+        $data['companies'] = Company::with('companyBranches.queues.user')->get();
         return view('home',$data);
     }
 
     public function profile(){
-        $data['user'] = User::with('branchQueues.companyBranch')->where('id', Auth::user()->id)->get()[0];
+        $data['isReceptionist'] = true;
+        $data['user'] = User::with('queues.companyBranch')->where('id', Auth::user()->id)->get()[0];
         $data['companyBranches'] = CompanyBranch::all();
         // echo "<pre>";
         // print_r($data['user']);

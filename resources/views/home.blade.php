@@ -34,7 +34,11 @@
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                           <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
+                          @if($isReceptionist)
+                          <a class="dropdown-item" href="{{ route('receptionist.home') }}">Receptionist Panel</a>
+                          @else
                           <a class="dropdown-item" href="{{ route('admin.home') }}">Admin Panel</a>
+                          @endif
                           <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a class="dropdown-item" href="#"
