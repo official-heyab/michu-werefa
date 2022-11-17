@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use Auth;
 use App\Models\Company;
+use App\Models\User;
 
 
 
@@ -14,7 +17,10 @@ class HomeController extends Controller{
     }
 
     public function index(){
-        $data['isReceptionist'] = true;
+        $data['isReceptionist'] = false;
+        if(Auth::user() != null)
+            $data['isReceptionist'] = User::isReceptionist(Auth::user()->id);
+
         $data['companies'] = Company::with('companyBranches.queues.user')->get();
         return view('home',$data);
     }

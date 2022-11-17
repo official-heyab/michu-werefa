@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use DB;
 
 class User extends Authenticatable{
     use HasApiTokens, HasFactory, Notifiable;
@@ -33,6 +34,14 @@ class User extends Authenticatable{
 
     public function queues(){
         return $this->hasMany(UserQueues::class);
+    }
+
+    public static function isReceptionist($id){
+        $role = DB::table('user_roles')->where("user_id", "=", $id)
+        ->first()->roles_id;
+
+        if($role==2) return true;
+        return false;
     }
 
     public function roles(){
