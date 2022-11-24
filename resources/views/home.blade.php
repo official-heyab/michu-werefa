@@ -79,7 +79,7 @@
         </header>
 
         <!-- Advertisement-->
-        {{-- <section class="page-section bg-primary" id="services">
+        <section class="page-section bg-primary" id="services">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 text-center">
@@ -90,22 +90,33 @@
                     </div>
                 </div>
             </div>
-        </section> --}}
+        </section>
 
         <!-- Companies-->
         <section class="page-section" id="companies">
             <div class="container px-4 px-lg-5">
                 <h2 class="text-center mt-0">Companies</h2>
                 <hr class="divider" />
+                <div class="form-group">
+                    <label for="filter">Select Category: </label>
+                    <select id="filter">
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->name }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Category</th>
                             <th>List of companies</th>
                             <th>Branches & Werefa</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>Category</th>
                             <th>List of companies</th>
                             <th>Branches & Werefa</th>
                         </tr>
@@ -113,6 +124,9 @@
                     <tbody>
                         @foreach($companies as $company)
                             <tr>
+                                <td>
+                                    {{ $company->companyCategory->name }}
+                                </td>
                                 <td style="text-align: left;">
                                     <img width=100 src="{{$company->logo}}">
                                     {{$company->name}}<br><br>
@@ -145,6 +159,8 @@
                 </table>
             </div>
         </section>
+
+
 
         <!-- Services-->
         <section class="page-section bg-primary" id="services">
@@ -262,6 +278,16 @@
                 display: inline-flex;
             }
         </style>
+
+
+<script>
+    var table = $('#dataTable').DataTable();
+
+    $("#filter").on('change', function() {
+        table.column(0).search($(this).val()).draw();
+    });
+
+</script>
 
         @include('home-forms')
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 use App\Models\Company;
+use App\Models\CompanyCategory;
 use App\Models\User;
 
 
@@ -22,6 +23,7 @@ class HomeController extends Controller{
             $data['isReceptionist'] = User::isReceptionist(Auth::user()->id);
 
         $data['companies'] = Company::with('companyBranches.queues.user')->get();
+        $data['categories'] = CompanyCategory::all();
         return view('home',$data);
     }
 
