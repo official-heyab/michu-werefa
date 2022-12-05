@@ -11,6 +11,7 @@ use App\Http\Controllers\CompanyCategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyBranchController;
 use App\Http\Controllers\ReceptionistController;
+use App\Http\Controllers\AdvertisementController;
 
 //Auth Controller
 require __DIR__.'/auth.php';
@@ -61,6 +62,9 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
 Route::get('/admin/companyCategories', [AdminController::class, 'companyCategories'])
     ->middleware(['auth'])->name('admin.companyCategories');
 
+Route::get('/admin/advertisements', [AdminController::class, 'advertisements'])
+    ->middleware(['auth'])->name('admin.advertisements');
+
 Route::get('/admin/companies', [AdminController::class, 'companies'])
     ->middleware(['auth'])->name('admin.companies');
 
@@ -103,6 +107,16 @@ Route::post('/companyCategory/update', [CompanyCategoryController::class, 'updat
 
 Route::post('/companyCategory/delete', [CompanyCategoryController::class, 'delete'])
     ->middleware(['auth'])->name('companyCategory.delete');
+
+//Advertisement Controller
+Route::post('/advertisement/store', [AdvertisementController::class, 'store'])
+    ->middleware(['auth'])->name('advertisement.store');
+
+Route::post('/advertisement/update', [AdvertisementController::class, 'update'])
+    ->middleware(['auth'])->name('advertisement.update');
+
+Route::post('/advertisement/delete', [AdvertisementController::class, 'delete'])
+    ->middleware(['auth'])->name('advertisement.delete');
 
 
 //Company Controller

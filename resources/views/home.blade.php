@@ -83,10 +83,10 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h2 class="text-white mt-0">Ad Section</h2>
+                        <h2 class="text-white mt-0">{{ $ad->title }}</h2>
                         <hr class="divider divider-light" />
-                        <p class="text-white-75 mb-4">Enjoy Walia Beer. For more info click below...</p>
-                        <a class="btn btn-light btn-xl" href="#">Walia Beer Website</a>
+                        <p class="text-white-75 mb-4">{{ $ad->desc }}</p>
+                        <a class="btn btn-light btn-xl" target="_blank" href="{{ $ad->link }}">Click to read more</a>
                     </div>
                 </div>
             </div>

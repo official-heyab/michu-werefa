@@ -30,6 +30,12 @@
         </a>
     </li>
 
+    <li class="nav-item {{ (Route::currentRouteName() == 'admin.advertisements') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.advertisements') }}">
+            <i class="fas fa-fw fa-building"></i><span>Advertisements</span>
+        </a>
+    </li>
+
     <li class="nav-item {{ (Route::currentRouteName() == 'admin.companyBranches') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.companyBranches') }}">
             <i class="fas fa-fw fa-rocket"></i><span>Company Branches </span>

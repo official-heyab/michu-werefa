@@ -11,6 +11,7 @@ use App\Models\CompanyBranch;
 use App\Models\Receptionists;
 use App\Models\Roles;
 use App\Models\User;
+use App\Models\Advertisement;
 
 
 class AdminController extends Controller{
@@ -32,6 +33,10 @@ class AdminController extends Controller{
         return view('admin.companyCategories',$data);
     }
 
+    public function advertisements(){
+        $data['ads'] = Advertisement::all();
+        return view('admin.ads',$data);
+    }
 
     public function companies(){
         $data['companies'] = Company::all();
