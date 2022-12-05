@@ -109,38 +109,48 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Category</th>
                             <th>List of companies</th>
-                            <th>Branches & Werefa</th>
+                            <th>Branches</th>
+                            <th>Werefa</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Category</th>
                             <th>List of companies</th>
-                            <th>Branches & Werefa</th>
+                            <th>Branches</th>
+                            <th>Werefa</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach($companies as $company)
                             <tr>
-                                <td>
-                                    {{ $company->companyCategory->name }}
-                                </td>
                                 <td style="text-align: left;">
-                                    <img width=100 src="{{$company->logo}}">
+                                    <?php
+                                        if(strpos($company->logo, "http") === false)
+                                            $imageURL =  asset('images/'.$company->logo);
+                                        else
+                                            $imageURL = $company->logo;
+                                    ?>
+
+
+                                    <img width=100 src="{{$imageURL}}">
                                     {{$company->name}}<br><br>
+                                    <strong>Category: </strong>{{ $company->companyCategory->name }}<br>
                                     <strong>Werefa price: </strong>{{$company->ticket_price}}
                                 </td>
                                 <td  style="text-align: left;">
                                     @foreach($company->companyBranches as $branch)
+                                        <strong>{{$branch->name}}: {{$branch->peopleWaiting()}} people waiting</strong><br>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach($company->companyBranches as $branch)
                                         <div>
-                                            <strong>{{$branch->name}}: {{$branch->peopleWaiting()}} people waiting</strong>
                                             <a href="#" data-toggle="modal" data-target="#historyModal"
                                                 class="btn btn-primary btn-icon-split" data-val="{{$branch}}"
                                                 data-company-val="{{$company}}">
                                                 <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
-                                                <span class="text">View Werefa</span>
+                                                <span class="text">View</span>
                                             </a>
                                             @auth
                                             <a href="#" data-toggle="modal" data-target="#getInLineModal"

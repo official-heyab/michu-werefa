@@ -17,16 +17,19 @@ aria-hidden="true">
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Name">
+                        <input type="text" required class="form-control" name="name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="file" required class="form-control" name="image">
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control" name="price" placeholder="Price">
+                            <input type="text" required class="form-control" name="price" placeholder="Price">
                         </div>
                     </div>
                     <div class="form-group">
                         <textarea rows=8 class="form-control" name="desc"
-                        placeholder="Enter description"></textarea>
+                        required placeholder="Enter description"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Register</button>
                 </form>
@@ -58,16 +61,22 @@ aria-hidden="true">
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Name">
+                        <input type="text" required class="form-control" name="name" placeholder="Name">
+                    </div>
+
+                    <div id="imageArea"></div>
+
+                    <div class="form-group">
+                        <input type="file" class="form-control" name="image">
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control" name="price" placeholder="Price">
+                            <input type="text" required class="form-control" name="price" placeholder="Price">
                         </div>
                     </div>
                     <div class="form-group">
                         <textarea rows=8 class="form-control" name="desc"
-                        placeholder="Enter description"></textarea>
+                        required placeholder="Enter description"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Update</button>
                 </form>
@@ -98,6 +107,7 @@ aria-hidden="true">
                     <div class="form-group">
                         <input type="text" disabled class="form-control" name="name" placeholder="Name">
                     </div>
+                    <div id="imageArea"></div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="text" disabled class="form-control" name="price" placeholder="Price">
@@ -131,10 +141,13 @@ aria-hidden="true">
     //get value links
     $('#editModal, #deleteModal').on('show.bs.modal', function (event) {
         var company = $(event.relatedTarget).data('val');
+        var imageURL = $(event.relatedTarget).data('image-val');
+        var image="<img width='100' src='"+imageURL+"'/>";
 
         $(this).find('span#title').html(company.name);
         $(this).find('input[name=id]').val(company.id);
         $(this).find('input[name=name]').val(company.name);
+        $(this).find('div#imageArea').html(image);
         $(this).find('input[name=price]').val(company.ticket_price);
         $(this).find('textarea[name=desc]').val(company.desc);
         $(this).find('select#selectCategory option[value='+ company.company_category_id+']').attr('selected','selected');

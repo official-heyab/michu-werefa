@@ -37,7 +37,7 @@
         var branch  = $(event.relatedTarget).data('val');
         var company  = $(event.relatedTarget).data('company-val');
 
-        $(this).find('span#title').html(company.name);
+        $(this).find('span#title').html(branch.name);
 
 
         for (var index in branch.queues) {

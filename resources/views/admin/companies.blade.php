@@ -75,19 +75,29 @@
                                         @foreach($companies as $company)
                                             <tr>
                                                 <td>
-                                                    <img width=100 src="{{$company->logo}}">
+                                                    <?php
+                                                        if(strpos($company->logo, "http") === false)
+                                                            $imageURL =  asset('images/'.$company->logo);
+                                                        else
+                                                            $imageURL = $company->logo;
+                                                    ?>
+
+
+                                                    <img width=100 src="{{$imageURL}}">
                                                     {{$company->name}}<br>
                                                     <strong>Category: </strong>{{$company->companyCategory->name}}<br>
                                                     <strong>Werefa price: </strong>{{$company->ticket_price}}<br>
 
                                                     <a href="#" data-toggle="modal" data-target="#editModal"
-                                                        class="btn btn-primary btn-icon-split" data-val="{{$company}}" data-categories-val="{{$categories}}">
+                                                        class="btn btn-primary btn-icon-split" data-val="{{$company}}"
+                                                        data-categories-val="{{$categories}}" data-image-val="{{ $imageURL }}">
                                                         <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                                         <span class="text">Edit</span>
                                                     </a>
 
                                                     <a href="#" data-toggle="modal" data-target="#deleteModal"
-                                                        class="btn btn-danger btn-icon-split" data-val="{{$company}}">
+                                                        class="btn btn-danger btn-icon-split" data-val="{{$company}}"
+                                                        data-image-val="{{ $imageURL }}">
                                                         <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
                                                         <span class="text">Delete</span>
                                                     </a>

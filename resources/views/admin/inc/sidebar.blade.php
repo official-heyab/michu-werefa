@@ -32,7 +32,7 @@
 
     <li class="nav-item {{ (Route::currentRouteName() == 'admin.advertisements') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.advertisements') }}">
-            <i class="fas fa-fw fa-building"></i><span>Advertisements</span>
+            <i class="fas fa-fw fa-anchor"></i><span>Advertisements</span>
         </a>
     </li>
 
