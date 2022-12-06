@@ -37,7 +37,8 @@
         var branch  = $(event.relatedTarget).data('val');
         var company  = $(event.relatedTarget).data('company-val');
 
-        $(this).find('span#title').html(branch.name);
+
+        $(this).find('span#title').html(company.name+": "+branch.name);
 
 
         for (var index in branch.queues) {
@@ -91,12 +92,12 @@
         var branch  = $(event.relatedTarget).data('val');
         var company  = $(event.relatedTarget).data('company-val');
         var peopleWaiting  = $(event.relatedTarget).data('queue-val');
+        var imageURL  = $(event.relatedTarget).data('image-val');
+
         $(this).find('input[name=branch]').val(branch.id);
-        $(this).find('span#title').html(branch.name);
-        console.log(company);
+        $(this).find('span#title').html(company.name+": "+branch.name);
 
-
-        modalBody +="<img width=100 src='"+company.logo+"'><br><br>";
+        modalBody +="<img width=100 src='"+imageURL+"'><br><br>";
         modalBody += "<strong>Werefa price: </strong>";
         modalBody += company.ticket_price;
         modalBody += "<br><strong>"+peopleWaiting+" people waiting </strong>";

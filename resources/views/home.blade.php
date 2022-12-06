@@ -144,24 +144,29 @@
                                     @endforeach
                                 </td>
                                 <td>
+                                    @auth
                                     @foreach($company->companyBranches as $branch)
                                         <div>
                                             <a href="#" data-toggle="modal" data-target="#historyModal"
                                                 class="btn btn-primary btn-icon-split" data-val="{{$branch}}"
                                                 data-company-val="{{$company}}">
                                                 <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
-                                                <span class="text">View</span>
                                             </a>
-                                            @auth
                                             <a href="#" data-toggle="modal" data-target="#getInLineModal"
                                                 class="btn btn-success btn-icon-split" data-val="{{$branch}}"
-                                                data-company-val="{{$company}}" data-queue-val="{{$branch->peopleWaiting()}}" >
+                                                data-company-val="{{$company}}" data-queue-val="{{$branch->peopleWaiting()}}"
+                                                data-image-val="{{ $imageURL }}">
                                                 <span class="icon text-white-50"><i class="fas fa-check"></i></span>
                                                 <span class="text">Get in line</span>
                                             </a>
-                                            @endauth
                                         </div>
                                     @endforeach
+                                    @else
+                                    <a href="{{ route('login') }}" class="btn btn-success btn-icon-split" >
+                                        <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+                                        <span class="text"> Login to view werefa</span>
+                                    </a>
+                                    @endauth
                                 </td>
                             </tr>
                         @endforeach
