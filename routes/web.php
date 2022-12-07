@@ -12,6 +12,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyBranchController;
 use App\Http\Controllers\ReceptionistController;
 use App\Http\Controllers\AdvertisementController;
+use App\Http\Controllers\MailController;
 
 //Auth Controller
 require __DIR__.'/auth.php';
@@ -151,4 +152,12 @@ Route::post('/receptionist/delete', [ReceptionistController::class, 'delete'])
 Route::post('/receptionist/nextPerson', [ReceptionistController::class, 'nextPerson'])
     ->middleware(['auth'])->name('receptionist.nextPerson');
 
+
+//Mail controller
+Route::get('sendbasicemail', [MailController::class, 'basic_email']);
+Route::get('sendhtmlemail', [MailController::class, 'html_email'] );
+Route::get('sendattachmentemail', [MailController::class, 'attachment_email']);
+
+
+Route::post('submitcontact', [MailController::class, 'contactus']);
 
