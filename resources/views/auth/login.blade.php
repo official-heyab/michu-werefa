@@ -13,6 +13,7 @@
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    <p id="capsWarning">WARNING! Caps lock is ON.</p>
                                 </div>
                                 <!-- Session Status -->
                                 <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -20,7 +21,7 @@
                                 <!-- Validation Errors -->
                                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-                                <form method="POST" class="user" action="{{ route('login') }}">
+                                <form method="POST" id="loginForm"  class="user" action="{{ route('login') }}">
                                     @csrf
 
                                     <!-- Email Address -->
@@ -72,6 +73,25 @@
             </div>
 
         </div>
+        <style>
+            #capsWarning {display:none;color:red}
+        </style>
+
+        <script>
+            // Get the fields
+            var text = document.getElementById("capsWarning");
+            var form = document.getElementById("loginForm");
+
+            // When the user presses any key on the keyboard, run the function
+            form.addEventListener("keyup", function(event) {
+            // If "caps lock" is pressed, display the warning text
+                if (event.getModifierState("CapsLock")) {
+                    text.style.display = "block";
+                } else {
+                    text.style.display = "none"
+                }
+            });
+        </script>
 
 
 
