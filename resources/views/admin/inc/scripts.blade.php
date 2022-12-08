@@ -42,4 +42,13 @@
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('sb-theme/js/sb-admin-2.min.js')}}"></script>
 
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
 

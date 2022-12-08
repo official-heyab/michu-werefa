@@ -12,6 +12,12 @@
         <link href="{{ asset('creative-theme/css/styles.css')}}" rel="stylesheet" />
     </head>
 
+    <style>
+        .goog-logo-link{
+            display: none;
+        }
+    </style>
+
 
     <body id="page-top"  class="font-sans antialiased">
         <!-- Navigation-->
@@ -26,6 +32,7 @@
                         <li class="nav-item"><a class="nav-link" href="#page-top">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#companies">Companies</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+
                     @auth
                     <li class="nav-item dropdown show">
                         <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -57,7 +64,11 @@
                     </ul>
                 </div>
             </div>
+
+            <div id="google_translate_element"></div>
         </nav>
+
+
 
         <!-- Masthead-->
         <header class="masthead">
@@ -77,6 +88,9 @@
                 </div>
             </div>
         </header>
+
+
+
 
         <!-- Advertisement-->
         <section class="page-section bg-primary" id="services">
@@ -334,6 +348,6 @@
 
         @include('home-forms')
 
-    </body>
+       </body>
 </html>
 
