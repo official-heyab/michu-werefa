@@ -30,6 +30,7 @@ class UserSeeder extends Seeder{
                     'user_id' => $user->id,
                     'company_id' => $companyBranch->company_id,
                     'company_branch_id' => $companyBranch->id,
+                    'remark' => 'queue remark',
                     'status' => $status[array_rand($status)],
                 ));
 

@@ -26,6 +26,7 @@ class HomeController extends Controller{
         $data['companies'] = Company::with('companyBranches.queues.user')->get();
         $data['categories'] = CompanyCategory::all();
         $data['ad'] = Advertisement::where('isCurrent', '=', 1)->first();
+
         return view('home',$data);
     }
 

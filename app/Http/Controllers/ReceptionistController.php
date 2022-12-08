@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\UserQueues;
 use App\Models\Receptionists;
+use App\Http\Controllers\MailController;
 
 class ReceptionistController extends Controller{
 
@@ -48,6 +49,11 @@ class ReceptionistController extends Controller{
         $queue = $queue->first();
         $queue->status = 'Done';
         $queue->save();
+
+        //send email
+        $mail = new MailController;
+        $mail->queueCancelledEmail($queue);
+
         return redirect()->back()->with('success','Next person in front');
     }
 }

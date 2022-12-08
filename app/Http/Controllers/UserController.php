@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 //use Auth;
 use App\Models\User;
+use App\Models\Company;
 use App\Models\CompanyBranch;
 use App\Models\UserQueues;
 use App\Models\UserTransactions;
+
+use App\Http\Controllers\MailController;
 
 class UserController extends Controller{
 
@@ -78,6 +81,11 @@ class UserController extends Controller{
         // $this->validate($request,[
         //     'company'=>'required'
         // ]);
+
+        $remark="";
+        if($request->input('remark')!=null)
+            $remark = $request->input('remark');
+
         $isAdmin = false;
         if($request->input('id')!=null){
             $user = User::find($request->input('id'));
@@ -98,10 +106,12 @@ class UserController extends Controller{
         if(count($prevQueue)>0)
             return redirect()->back()->with('error','User is already waiting');
 
+
         $queue = new UserQueues;
         $queue->user_id = $user->id;
         $queue->company_branch_id = $branch->id;
         $queue->company_id = $branch->company_id;
+        $queue->remark = $remark;
         $queue->status = 'Waiting';
         $queue->save();
 
@@ -120,6 +130,13 @@ class UserController extends Controller{
             //Otherwise its free
             //Display error message
         }
+
+        //send email
+        $mail = new MailController;
+        $mail->queueCreatedEmail($queue);
+
+
+
         //redirect to show page
         return redirect()->back()->with('success','Queue Created');
 
@@ -140,6 +157,7 @@ class UserController extends Controller{
 
         return redirect()->back()->with('success','User Balance Topped Up');
     }
+
 
 
 

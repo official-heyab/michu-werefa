@@ -7,6 +7,8 @@ use App\Models\Company;
 use App\Models\CompanyBranch;
 use App\Models\User;
 use Auth;
+use App\Models\Advertisement;
+use App\Models\CompanyCategory;
 
 
 class UserHomeController extends Controller{
@@ -21,6 +23,8 @@ class UserHomeController extends Controller{
             $data['isReceptionist'] = User::isReceptionist(Auth::user()->id);
 
         $data['companies'] = Company::with('companyBranches.queues.user')->get();
+        $data['categories'] = CompanyCategory::all();
+        $data['ad'] = Advertisement::where('isCurrent', '=', 1)->first();
         return view('home',$data);
     }
 

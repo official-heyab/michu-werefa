@@ -68,15 +68,23 @@
         </button>
         </div>
         <div class="modal-body">
+
         </div>
-        <div class="modal-footer">
+        <div style="padding:15px;">
             <form action="{{route('user.getInLine')}}"
             method='post' enctype='multipart/form-data'
             style="margin:0;">
                 @csrf
                 <input type="hidden" name="branch">
+                <div class="form-group">
+                    <textarea rows=8 class="form-control" name="remark"
+                    placeholder="Enter any remarks you have..."></textarea>
+                </div>
                 <button type="submit" class="btn btn-success btn-block">Get in line</button>
             </form>
+        </div>
+        <div class="modal-footer">
+
 
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
         </div>

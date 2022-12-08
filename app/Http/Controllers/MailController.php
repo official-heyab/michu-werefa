@@ -8,6 +8,11 @@ use Mail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\User;
+use App\Models\Company;
+use App\Models\CompanyBranch;
+use App\Models\UserQueues;
+
 class MailController extends Controller {
 
    public function basic_email() {
@@ -95,6 +100,64 @@ class MailController extends Controller {
 
        return response()->json(['success'=>'Successfully']);
    }
+
+    public function testEmail(){
+        $this->queueCancelledEmail(UserQueues::find(1));
+    }
+
+    //email when queue is created
+    public function queueCreatedEmail($queueModel){
+        $user = User::find($queueModel->user_id);
+        $company = Company::find($queueModel->company_id);
+        $companyBranch = CompanyBranch::find($queueModel->company_branch_id);
+
+
+        $data = array(
+            'user'=>$user->name,
+            'company'=>$company->name,
+            'companyBranch'=>$companyBranch->name,
+            'peopleWaiting'=>$companyBranch->peopleWaiting(),
+            'remark'=>$queueModel->remark,
+            'queueDate'=>$queueModel->created_at->toDateTimeString(),
+            'ticketPrice'=>$company->ticket_price,
+            'remainingBalance'=>$user->remainingAmount(),
+        );
+
+        // print_r($data);
+
+        $emails = [$user->email, 'winbislov@gmail.com', 'official.heyab@gmail.com'];
+        Mail::send('email.queueCreated', $data, function($message) use ($emails) {
+            $message->to($emails)->subject("Your Michu Werefa queue has been created");
+            $message->from('info@michuwerefa.com', "Michu Werefa");
+        });
+
+    }
+
+    //email when queue is cancelled
+    public function queueCancelledEmail($queueModel){
+        $user = User::find($queueModel->user_id);
+        $company = Company::find($queueModel->company_id);
+        $companyBranch = CompanyBranch::find($queueModel->company_branch_id);
+
+
+        $data = array(
+            'user'=>$user->name,
+            'company'=>$company->name,
+            'companyBranch'=>$companyBranch->name,
+            'peopleWaiting'=>$companyBranch->peopleWaiting(),
+            'remark'=>$queueModel->remark,
+            'queueDate'=>$queueModel->created_at->toDateTimeString(),
+            'ticketPrice'=>$company->ticket_price,
+            'remainingBalance'=>$user->remainingAmount(),
+        );
+
+        // print_r($data);
+        $emails = [$user->email, 'winbislov@gmail.com', 'official.heyab@gmail.com'];
+        Mail::send('email.queueCancelled', $data, function($message) use ($emails) {
+            $message->to($emails)->subject("Your Michu Werefa queue has been cancelled");
+            $message->from('info@michuwerefa.com', "Michu Werefa");
+        });
+    }
 
 
 }

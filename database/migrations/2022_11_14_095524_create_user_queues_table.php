@@ -12,6 +12,7 @@ class CreateUserQueuesTable extends Migration{
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('company_branch_id');
+            $table->mediumText('remark')->nullable();
             $table->string('status',100);
             $table->timestamps();
 

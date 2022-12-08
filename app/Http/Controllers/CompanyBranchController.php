@@ -8,6 +8,8 @@ use App\Models\CompanyBranch;
 use App\Models\BranchReceptionist;
 use App\Models\UserQueue;
 
+
+
 class CompanyBranchController extends Controller{
 
     public function __construct(){
@@ -81,18 +83,23 @@ class CompanyBranchController extends Controller{
     }
 
     public function nextPerson(Request $request){
-        $branchID = $request->input('id');
-        $queue = UserQueue::where([
-            ['company_branch_id', '=', $branchID],
-            ['status', '=', 'Waiting']
-        ]);
+        // $branchID = $request->input('id');
+        // $queue = UserQueue::where([
+        //     ['company_branch_id', '=', $branchID],
+        //     ['status', '=', 'Waiting']
+        // ]);
 
-        if($queue->count()==0)
-            return redirect()->back()->with('error','There is NO queue');
 
-        $queue = $queue->first();
-        $queue->status = 'Done';
-        $queue->save();
-        return redirect()->back()->with('success','Next person in front');
+        // if($queue->count()==0)
+        //     return redirect()->back()->with('error','There is NO queue');
+
+        // $queue = $queue->first();
+        // $queue->status = 'Done';
+        // $queue->save();
+
+
+
+
+        // return redirect()->back()->with('success','Next person in front');
     }
 }
