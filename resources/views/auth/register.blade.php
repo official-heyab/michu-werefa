@@ -45,6 +45,16 @@
                                         name="password_confirmation" id="confirmPwd" required/>
                                 </div>
                             </div>
+
+
+                            <!-- Show Password -->
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox small">
+                                    <input type="checkbox" class="custom-control-input" id="showPwd" onclick="showPassword()">
+                                    <label class="custom-control-label" for="showPwd">Show Password</label>
+                                </div>
+                            </div>
+
                             <x-button class="btn btn-primary btn-user btn-block">
                                 {{ __('Register Account') }}
                             </x-button>
@@ -87,6 +97,19 @@
                 text.style.display = "none"
             }
         });
+
+        function showPassword() {
+            var x = document.getElementById("password");
+            var y = document.getElementById("confirmPwd");
+            if (x.type === "password") {
+                x.type = "text";
+                y.type = "text";
+            } else {
+                x.type = "password";
+                y.type = "password";
+            }
+        }
+
 
     </script>
 

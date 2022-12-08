@@ -39,6 +39,14 @@
                                                         required autocomplete="current-password" />
                                     </div>
 
+                                    <!-- Show Password -->
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="showPwd" onclick="showPassword()">
+                                            <label class="custom-control-label" for="showPwd">Show Password</label>
+                                        </div>
+                                    </div>
+
                                     <!-- Remember Me -->
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
@@ -91,6 +99,15 @@
                     text.style.display = "none"
                 }
             });
+
+            function showPassword() {
+                var x = document.getElementById("password");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
         </script>
 
 
