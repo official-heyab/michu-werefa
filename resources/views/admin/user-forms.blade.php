@@ -223,7 +223,7 @@ aria-hidden="true">
             tableBody +="<tr>";
             tableBody +="<td>"+user.queues[index].company_branch.name+"</td>";
             tableBody +="<td>"+user.queues[index].status+"</td>";
-            tableBody +="<td class='fit'>"+queueDate.getHours()+":"+queueDate.getMinutes();
+            tableBody +="<td class='fit'>"+formatAMPM(queueDate);
             tableBody +=" "+$.datepicker.formatDate('DD, MM d yy', queueDate)+"</td>";
             tableBody +="</tr>";
         }
@@ -341,7 +341,8 @@ aria-hidden="true">
             if(balanceSheets[index].isWithdrawal==0)
                 tableBody +="Deposited ";
             tableBody +=balanceSheets[index].amount+"</td>";
-            tableBody +="<td>"+transDate.getHours()+":"+transDate.getMinutes();
+
+            tableBody +="<td>"+formatAMPM(transDate);
             tableBody +=" "+$.datepicker.formatDate('DD, MM d yy', transDate);
             tableBody += "</td></tr>";
         }

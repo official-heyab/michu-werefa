@@ -58,7 +58,7 @@ aria-hidden="true">
             tableBody +="<tr>";
             tableBody +="<td>"+branch.queues[index].user.name+"</td>";
             tableBody +="<td>"+branch.queues[index].status+"</td>";
-            tableBody +="<td class='fit'>"+queueDate.getHours()+":"+queueDate.getMinutes();
+            tableBody +="<td class='fit'>"+formatAMPM(queueDate);
             tableBody +=" "+$.datepicker.formatDate('DD MM d, yy', queueDate)+"</td>";
             tableBody +="</tr>";
         }
