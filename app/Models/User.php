@@ -44,6 +44,14 @@ class User extends Authenticatable{
         return false;
     }
 
+    public static function isAdmin($id){
+        $role = DB::table('user_roles')->where("user_id", "=", $id)
+        ->first()->roles_id;
+
+        if($role==1) return true;
+        return false;
+    }
+
     public function roles(){
         return $this->belongsToMany(Roles::class, 'user_roles');
     }

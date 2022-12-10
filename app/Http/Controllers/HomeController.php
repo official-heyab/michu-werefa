@@ -20,8 +20,10 @@ class HomeController extends Controller{
 
     public function index(){
         $data['isReceptionist'] = false;
-        if(Auth::user() != null)
+        if(Auth::user() != null){
             $data['isReceptionist'] = User::isReceptionist(Auth::user()->id);
+            $data['isAdmin'] = User::isAdmin(Auth::user()->id);
+        }
 
         $data['companies'] = Company::with('companyBranches.queues.user')->get();
         $data['categories'] = CompanyCategory::all();
